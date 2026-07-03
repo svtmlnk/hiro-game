@@ -1,0 +1,56 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "world.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "world.json": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 701,
+                "y": 537
+            }
+        },
+        "world.json#ground": {
+            "scaleInDock": 0.75
+        },
+        "world.json#items": {
+            "scaleInDock": 0.75
+        },
+        "world.json#tiles": {
+            "scaleInDock": 1
+        },
+        "world.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 360,
+                "y": 378
+            }
+        },
+        "world.tmx#ground": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Slava/Desktop/hiro-game/src/game/assets",
+    "map.height": 15,
+    "map.lastUsedFormat": "json",
+    "map.width": 20,
+    "openFiles": [
+        "world.json"
+    ],
+    "project": "hiro-world.tiled-project",
+    "recentFiles": [
+        "world.json",
+        "world.tmx"
+    ],
+    "tileset.embedInMap": true
+}
