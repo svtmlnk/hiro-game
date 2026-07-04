@@ -42,12 +42,16 @@ export class World extends Scene {
     // adding world layers
     const groundLayer = map.createLayer(LAYERS.GROUND, tileset, 0, 0);
     const itemsLayer = map.createLayer(LAYERS.ITEMS, tileItemset, 0, 0);
-
+    
     // adding hiro (player) in this world: scene, position x y, texture name
     this.hiro = new Hiro(this, 400, 250, SPRITES.HIRO);
+    
+    // adding items up layer, after creating player
+    const itemsUpLayer = map.createLayer(LAYERS.ITEMS_UP, tileItemset, 0, 0);
 
     // adding camera for player
     this.cameras.main.startFollow(this.hiro);
+    // camera zoom
     this.cameras.main.setZoom(2);
     // adding bounds for this camera
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);

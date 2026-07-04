@@ -2,7 +2,6 @@
 export const TILES = {
     WORLD: 'world',
     ITEMS: 'items',
-    ITEMS_UP: 'items_up'
 }
 
 export const SIZES = {
@@ -19,7 +18,7 @@ export const SIZES = {
 export const LAYERS = {
     GROUND: 'ground',
     ITEMS: 'items',
-    ITEMS_UP: 'items_up'
+    ITEMS_UP: 'items_up',
 }
 
 // sprite naming
