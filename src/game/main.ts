@@ -13,12 +13,18 @@ const config: Phaser.Types.Core.GameConfig = {
     width: 640,
     height: 480,
     parent: 'game-container',
-    backgroundColor: '#028af8',
+    backgroundColor: '#000000',
     url: import.meta.env.URL || '',
     version: import.meta.env.VERSION || '0.0.1',
     scale: {
         mode: Scale.FIT,
         autoCenter: Scale.CENTER_BOTH
+    },
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
     },
     pixelArt: true,
     scene: [
