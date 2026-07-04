@@ -48,6 +48,7 @@ export class World extends Scene {
 
     // adding camera for player
     this.cameras.main.startFollow(this.hiro);
+    this.cameras.main.setZoom(2);
     // adding bounds for this camera
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     
