@@ -16,11 +16,11 @@ export class Hiro extends Entity {
     this.moveSpeed = 10;
 
     // hitbox size and position
-    this.setSize(22, 10);
-    this.setOffset(0, 40);
+    this.setSize(30, 10);
+    this.setOffset(10, 45);
 
     // player sprite size
-    // this.setScale(0.8);
+    this.setScale(0.8);
 
     this.textureKey = texture;
 
@@ -28,7 +28,7 @@ export class Hiro extends Entity {
     anims.create({
       key: "down",
       frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [0],
+        frames: [0, 5, 0, 6],
       }),
       frameRate: animsFrameRate,
       repeat: -1,
@@ -37,7 +37,7 @@ export class Hiro extends Entity {
     anims.create({
       key: "left",
       frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [2],
+        frames: [1, 2],
       }),
       frameRate: animsFrameRate,
       repeat: -1,
@@ -46,7 +46,7 @@ export class Hiro extends Entity {
     anims.create({
       key: "right",
       frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [3],
+        frames: [3, 4],
       }),
       frameRate: animsFrameRate,
       repeat: -1,
@@ -55,7 +55,7 @@ export class Hiro extends Entity {
     anims.create({
       key: "up",
       frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [1],
+        frames: [7, 8, 9],
       }),
       frameRate: animsFrameRate,
       repeat: -1,

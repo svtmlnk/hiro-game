@@ -9,9 +9,13 @@ export const SIZES = {
     TILES: 32,
     // size of player (hiro)
     HIRO: {
-        WIDTH: 22,
-        HEIGHT: 48
-    }
+        WIDTH: 50,
+        HEIGHT: 60,
+    },
+    // SLIME_ENEMY: {
+    //     WIDTH: 18,
+    //     HEIGHT: 17
+    // }
 }
 
 // layers of assets
@@ -24,4 +28,7 @@ export const LAYERS = {
 // sprite naming
 export const SPRITES = {
     HIRO: 'Hiro',
+    // SLIME_ENEMY: {
+    //     base: 'slime_enemy',
+    // }
 }
