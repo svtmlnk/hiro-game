@@ -28,15 +28,15 @@ export class Preloader extends Scene {
   preload() {
     //  Load the assets for the game - Replace with your own assets
     // preloading assets (grass, items and player)
-    this.load.image(TILES.WORLD, "src/game/assets/grass.png");
-    this.load.image(TILES.ITEMS, "src/game/assets/items.png");
-    this.load.spritesheet(SPRITES.HIRO, "src/game/assets/characters/hiro.png", {
+    this.load.image(TILES.WORLD, "assets/sprites/grass.png");
+    this.load.image(TILES.ITEMS, "assets/sprites/items.png");
+    this.load.spritesheet(SPRITES.HIRO, "assets/characters/hiro.png", {
       frameWidth: SIZES.HIRO.WIDTH,
       frameHeight: SIZES.HIRO.HEIGHT,
     });
 
     // preloading music
-    this.load.audio("music", "src/game/assets/music/sleepless.mp3")
+    this.load.audio("music", "assets/music/sleepless.mp3")
   }
 
   create() {
