@@ -1,7 +1,56 @@
 {
+    "activeFile": "world.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "world.json": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 574,
+                "y": 477.33333333333326
+            }
+        },
+        "world.json#grass": {
+            "scaleInDock": 1
+        },
+        "world.json#ground": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "world.json#items": {
+            "scaleInDock": 0.75
+        },
+        "world.json#tiles": {
+            "scaleInDock": 1
+        },
+        "world.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 360,
+                "y": 378
+            }
+        },
+        "world.tmx#ground": {
+            "scaleInDock": 1
+        }
+    },
     "last.imagePath": "C:/Users/Slava/Desktop/hiro-game/src/game/assets",
     "map.lastUsedFormat": "json",
     "map.tileHeight": 32,
     "map.tileWidth": 32,
+    "openFiles": [
+        "world.json"
+    ],
+    "project": "hiro-world.tiled-project",
+    "recentFiles": [
+        "world.json",
+        "world.tmx"
+    ],
     "tileset.embedInMap": true
 }

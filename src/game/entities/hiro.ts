@@ -11,9 +11,9 @@ export class Hiro extends Entity {
 
     const anims = this.scene.anims;
     // speed anims
-    const animsFrameRate = 9;
+    const animsFrameRate = 4;
     // player speed
-    this.moveSpeed = 10;
+    this.moveSpeed = 8;
 
     // hitbox size and position
     this.setSize(30, 10);
@@ -55,7 +55,7 @@ export class Hiro extends Entity {
     anims.create({
       key: "up",
       frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [7, 8, 9],
+        frames: [7, 8, 9, 8],
       }),
       frameRate: animsFrameRate,
       repeat: -1,
