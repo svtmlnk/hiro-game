@@ -62,10 +62,10 @@ export class Hiro extends Entity {
     });
   }
 
-  update(delta: number) {
+  update(time: number, delta: number) {
     // moving controls
     const keys = this.scene.input.keyboard.createCursorKeys();
-
+    
     if (keys.up.isDown) {
       this.play("up", true);
       this.setVelocity(0, -delta * this.moveSpeed);
@@ -82,5 +82,8 @@ export class Hiro extends Entity {
       this.setVelocity(0);
       this.stop();
     }
+
+    // returning time for removing warning by TypeScript
+    return time
   }
 }

@@ -37,8 +37,8 @@ export class World extends Scene {
     );
     // adding items up position for world map
     // adding world layers
-    const groundLayer = map.createLayer(LAYERS.GROUND, tileset, 0, 0);
-    const itemsDownLayer = map.createLayer(
+    map.createLayer(LAYERS.GROUND, tileset, 0, 0);
+    map.createLayer(
       LAYERS.ITEMS_DOWN,
       tileItemset,
       0,
@@ -53,7 +53,7 @@ export class World extends Scene {
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
 
     // adding items up layer, after creating player
-    const itemsUpLayer = map.createLayer(LAYERS.ITEMS_UP, tileItemset, 0, 0);
+    map.createLayer(LAYERS.ITEMS_UP, tileItemset, 0, 0);
 
     // adding camera for player
     this.cameras.main.startFollow(this.hiro);
@@ -77,6 +77,6 @@ export class World extends Scene {
 
   update(time: number, delta: number): void {
     // update player position
-    this.hiro.update(delta);
+    this.hiro.update(time, delta);
   }
 }

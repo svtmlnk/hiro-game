@@ -9,10 +9,10 @@
         },
         "world.json": {
             "scale": 0.75,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 574,
-                "y": 477.33333333333326
+                "x": 502,
+                "y": 489.33333333333326
             }
         },
         "world.json#grass": {
