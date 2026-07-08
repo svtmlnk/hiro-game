@@ -1,5 +1,6 @@
 import { Scene, Sound } from "phaser";
-import worldJSON from "../assets/world.json";
+// import worldJSON from "../assets/world.json";
+import worldJSON from "../../../src/game/assets/world.json"
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 // import { Enemy } from "../entities/enemy";
@@ -16,7 +17,7 @@ export class World extends Scene {
 
   // preloading assets (only map)
   preload() {
-    this.load.tilemapTiledJSON("map", "src/game/assets/world.json");
+    this.load.tilemapTiledJSON("map", worldJSON);
   }
 
   create() {
