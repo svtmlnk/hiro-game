@@ -21,7 +21,7 @@ export class MainMenu extends Scene {
       .setOrigin(0.5);
 
     this.info = this.add
-      .text(320, 150, "[⬆] [⬇] [⬅] [➡] - moving\n[E] - interaction (not working)", {
+      .text(320, 150, "[⬆] [⬇] [⬅] [➡] - moving\n[E] - interaction", {
         fontFamily: "PIXY",
         fontSize: 23,
         color: "#bfbfbf",

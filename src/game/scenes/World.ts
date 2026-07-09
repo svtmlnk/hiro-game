@@ -1,15 +1,19 @@
 import { Scene, Sound } from "phaser";
-import worldJSON from "../../../src/game/assets/world.json"
+import worldJSON from "../../../src/game/assets/world.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 // import { Enemy } from "../entities/enemy";
 
 export class World extends Scene {
+  // File of the first game world
+
   private hiro?: Hiro;
+  interactionZone;
+  isPlayerInside: boolean;
+  playerFacing: number;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   // private slime_enemy?: Enemy;
 
-  // File of the first game world
   constructor() {
     super("World");
   }
@@ -22,29 +26,46 @@ export class World extends Scene {
   create() {
     // adding world map
     const map = this.make.tilemap({ key: "map" });
+
+    // adding sprites for this world
+    // grass:
     const tileset = map.addTilesetImage(
       worldJSON.tilesets[0].name,
       TILES.WORLD,
       SIZES.TILES,
       SIZES.TILES,
     );
-    // adding items for world map
+
+    // items:
     const tileItemset = map.addTilesetImage(
       worldJSON.tilesets[1].name,
       TILES.ITEMS,
       SIZES.TILES,
       SIZES.TILES,
     );
-    // adding items up position for world map
+
+    // house:
+    const tileHouseset = map.addTilesetImage(
+      worldJSON.tilesets[2].name,
+      TILES.HOUSE,
+      SIZES.TILES,
+      SIZES.TILES,
+    );
+
     // adding world layers
+    // ground layer:
     map.createLayer(LAYERS.GROUND, tileset, 0, 0);
-    map.createLayer(
-      LAYERS.ITEMS_DOWN,
-      tileItemset,
+
+    // items down layer:
+    map.createLayer(LAYERS.ITEMS_DOWN, tileItemset, 0, 0);
+
+    // items layer:
+    const itemsLayer = map.createLayer(
+      LAYERS.ITEMS,
+      [tileItemset, tileHouseset],
       0,
       0,
     );
-    const itemsLayer = map.createLayer(LAYERS.ITEMS, tileItemset, 0, 0);
 
     // adding hiro (player) in this world: scene, position x y, texture name
     this.hiro = new Hiro(this, 400, 250, SPRITES.HIRO);
@@ -52,8 +73,8 @@ export class World extends Scene {
     // // adding enemy in this world
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
 
-    // adding items up layer, after creating player
-    map.createLayer(LAYERS.ITEMS_UP, tileItemset, 0, 0);
+    // items up layer (adding this code after creating player for correctrly working)
+    map.createLayer(LAYERS.ITEMS_UP, [tileItemset, tileHouseset], 0, 0);
 
     // adding camera for player
     this.cameras.main.startFollow(this.hiro);
@@ -73,6 +94,17 @@ export class World extends Scene {
     // adding music
     this.music = this.sound.add("music", { loop: true });
     this.music.play();
+
+    // adding interaction zone
+    this.interactionZone = this.add.zone(544, 535, 20, 20);
+    // console.log(typeof this.interactionZone)
+    // console.log(this.interactionZone.x)
+    this.physics.add.existing(this.interactionZone);
+    this.interactionZone.body.setAllowGravity(false);
+    this.interactionZone.body.setImmovable(true);
+
+    // adding zones in this array for function setZone (hiro.ts) 
+    this.hiro.setZones([this.interactionZone])
   }
 
   update(time: number, delta: number): void {

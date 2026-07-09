@@ -1,10 +1,11 @@
-import { Scene } from "phaser";
+import { GameObjects, Math, Scene } from "phaser";
 import { Entity } from "./entity";
 import { SPRITES } from "../utils/constants";
 
 export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
+  zones: any[];
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture, SPRITES.HIRO);
@@ -20,9 +21,12 @@ export class Hiro extends Entity {
     this.setOffset(10, 45);
 
     // player sprite size
-    this.setScale(0.8);
+    this.setScale(0.65);
 
     this.textureKey = texture;
+
+    // calling function of key listening
+    this.setupKeysListeners();
 
     // frame animations
     anims.create({
@@ -62,10 +66,54 @@ export class Hiro extends Entity {
     });
   }
 
+  // adding other zones in current scene
+  setZones(zones: GameObjects.Zone[]){
+    this.zones = zones
+  }
+
+  // function of finding our target (zone)
+  private findTarget(zones: GameObjects.Zone[]){
+    let target = null;
+    let minDistance = Infinity;
+
+    for(const zone of zones){
+      const distance = Math.Distance.Between(this.x, this.y, zone.x, zone.y)
+
+      if(distance < minDistance){
+        minDistance = distance;
+        target = zone;
+      }
+    }
+    return target
+  }
+
+  // private function for action functions, like interact()
+  private setupKeysListeners() {
+    this.scene.input.keyboard.on("keydown-E", () => {
+      const target = this.findTarget(this.zones)
+      // console.log(target)
+      this.interact(target);
+    });
+  }
+
+  // function for player interaction with items
+  interact(target: any) {
+    const distance = Math.Distance.Between(
+      this.x,
+      this.y,
+      target.x,
+      target.y,
+    );
+
+    if (distance < 7) {
+      console.log("kurwa!");
+    }
+  }
+
   update(time: number, delta: number) {
     // moving controls
     const keys = this.scene.input.keyboard.createCursorKeys();
-    
+
     if (keys.up.isDown) {
       this.play("up", true);
       this.setVelocity(0, -delta * this.moveSpeed);
@@ -84,6 +132,6 @@ export class Hiro extends Entity {
     }
 
     // returning time for removing warning by TypeScript
-    return time
+    return time;
   }
 }

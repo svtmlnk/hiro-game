@@ -2,6 +2,7 @@
 export const TILES = {
     WORLD: 'world',
     ITEMS: 'items',
+    HOUSE: 'house'
 }
 
 export const SIZES = {

@@ -27,6 +27,7 @@ export class Preloader extends Scene {
     // preloading assets (grass, items and player)
     this.load.image(TILES.WORLD, "assets/sprites/grass.png");
     this.load.image(TILES.ITEMS, "assets/sprites/items.png");
+    this.load.image(TILES.HOUSE, "assets/sprites/house.png");
     this.load.spritesheet(SPRITES.HIRO, "assets/characters/hiro.png", {
       frameWidth: SIZES.HIRO.WIDTH,
       frameHeight: SIZES.HIRO.HEIGHT,
