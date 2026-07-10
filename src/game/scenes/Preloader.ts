@@ -28,13 +28,15 @@ export class Preloader extends Scene {
     this.load.image(TILES.WORLD, "assets/sprites/grass.png");
     this.load.image(TILES.ITEMS, "assets/sprites/items.png");
     this.load.image(TILES.HOUSE, "assets/sprites/house.png");
+    this.load.image(TILES.ROOM, "assets/sprites/interior.png");
     this.load.spritesheet(SPRITES.HIRO, "assets/characters/hiro.png", {
       frameWidth: SIZES.HIRO.WIDTH,
       frameHeight: SIZES.HIRO.HEIGHT,
     });
 
     // preloading music
-    this.load.audio("music", "assets/music/sleepless.mp3")
+    this.load.audio("world_music", "assets/music/sleepless.mp3")
+    this.load.audio("room_music", "assets/music/deldee.mp3")
   }
 
   create() {

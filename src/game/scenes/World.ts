@@ -9,8 +9,6 @@ export class World extends Scene {
 
   private hiro?: Hiro;
   interactionZone;
-  isPlayerInside: boolean;
-  playerFacing: number;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   // private slime_enemy?: Enemy;
 
@@ -92,7 +90,7 @@ export class World extends Scene {
     itemsLayer.setCollisionByExclusion([-1]);
 
     // adding music
-    this.music = this.sound.add("music", { loop: true });
+    this.music = this.sound.add("world_music", { loop: true });
     this.music.play();
 
     // adding interaction zone

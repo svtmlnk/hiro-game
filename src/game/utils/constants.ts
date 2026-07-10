@@ -1,6 +1,7 @@
 // name of assets
 export const TILES = {
     WORLD: 'world',
+    ROOM: 'interior',
     ITEMS: 'items',
     HOUSE: 'house'
 }
@@ -24,7 +25,10 @@ export const LAYERS = {
     GROUND: 'ground',
     ITEMS: 'items',
     ITEMS_UP: 'items_up',
-    ITEMS_DOWN: 'items_down'
+    ITEMS_DOWN: 'items_down',
+    FLOOR: 'floor',
+    INTERIOR: 'interior',
+    INTERIOR_UP: 'interior_up'
 }
 
 // sprite naming

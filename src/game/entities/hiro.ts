@@ -105,7 +105,7 @@ export class Hiro extends Entity {
       target.y,
     );
 
-    if (distance < 7) {
+    if (distance < 10) {
       console.log("kurwa!");
     }
   }
