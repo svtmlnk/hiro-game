@@ -10,6 +10,7 @@ export class Room extends Scene {
   private hiro?: Hiro;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
   constructor() {
     super("Room");
@@ -17,12 +18,12 @@ export class Room extends Scene {
 
   // preloading assets (only map)
   preload() {
-    this.load.tilemapTiledJSON("map", roomJSON);
+    this.load.tilemapTiledJSON("room_map", roomJSON);
   }
 
   create() {
     // adding world map
-    const map = this.make.tilemap({ key: "map" });
+    const map = this.make.tilemap({ key: "room_map" });
 
     // adding sprites for this world
     // floor:
@@ -41,7 +42,9 @@ export class Room extends Scene {
     const interiorLayer = map.createLayer(LAYERS.INTERIOR, tileset, 0, 0);
 
     // adding hiro (player) in this world: scene, position x y, texture name
-    this.hiro = new Hiro(this, 250, 250, SPRITES.HIRO);
+    this.hiro = new Hiro(this, 250, 250, SPRITES.HIRO, () =>
+      this.changeScene(),
+    );
 
     // // adding enemy in this world
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
@@ -68,6 +71,9 @@ export class Room extends Scene {
     this.music = this.sound.add("room_music", { loop: true });
     this.music.play();
 
+    // adding door sound
+    this.door_sound = this.sound.add("door_sound", { loop: false });
+
     // adding interaction zone
     this.interactionZone = this.add.zone(305, 270, 20, 20);
     this.physics.add.existing(this.interactionZone);
@@ -76,6 +82,17 @@ export class Room extends Scene {
 
     // adding zones in this array for function setZone (hiro.ts)
     this.hiro.setZones([this.interactionZone]);
+  }
+
+  // function of changing scene
+  changeScene() {
+    this.scene.stop();
+    this.music.stop();
+    this.door_sound.play();
+
+    setTimeout(() => {
+      this.scene.start("World");
+    }, 1500);
   }
 
   update(time: number, delta: number): void {

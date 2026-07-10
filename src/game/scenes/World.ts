@@ -10,6 +10,7 @@ export class World extends Scene {
   private hiro?: Hiro;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   // private slime_enemy?: Enemy;
 
   constructor() {
@@ -18,12 +19,12 @@ export class World extends Scene {
 
   // preloading assets (only map)
   preload() {
-    this.load.tilemapTiledJSON("map", worldJSON);
+    this.load.tilemapTiledJSON("world_map", worldJSON);
   }
 
   create() {
     // adding world map
-    const map = this.make.tilemap({ key: "map" });
+    const map = this.make.tilemap({ key: "world_map" });
 
     // adding sprites for this world
     // grass:
@@ -65,8 +66,10 @@ export class World extends Scene {
       0,
     );
 
-    // adding hiro (player) in this world: scene, position x y, texture name
-    this.hiro = new Hiro(this, 400, 250, SPRITES.HIRO);
+    // adding hiro (player) in this world: scene, position x y, texture name and callback function for changing scene
+    this.hiro = new Hiro(this, 400, 250, SPRITES.HIRO, () =>
+      this.changeScene(),
+    );
 
     // // adding enemy in this world
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
@@ -93,6 +96,9 @@ export class World extends Scene {
     this.music = this.sound.add("world_music", { loop: true });
     this.music.play();
 
+    // adding door sound
+    this.door_sound = this.sound.add("door_sound", { loop: false });
+
     // adding interaction zone
     this.interactionZone = this.add.zone(544, 535, 20, 20);
     // console.log(typeof this.interactionZone)
@@ -101,8 +107,19 @@ export class World extends Scene {
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
-    // adding zones in this array for function setZone (hiro.ts) 
-    this.hiro.setZones([this.interactionZone])
+    // adding zones in this array for function setZone (hiro.ts)
+    this.hiro.setZones([this.interactionZone]);
+  }
+
+  // function of changing scene
+  changeScene() {
+    this.scene.stop();
+    this.music.stop();
+    this.door_sound.play();
+
+    setTimeout(() => {
+      this.scene.start("Room");
+    }, 1500);
   }
 
   update(time: number, delta: number): void {

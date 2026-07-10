@@ -35,21 +35,21 @@ export class Preloader extends Scene {
     });
 
     // preloading music
-    this.load.audio("world_music", "assets/music/sleepless.mp3")
-    this.load.audio("room_music", "assets/music/deldee.mp3")
+    this.load.audio("world_music", "assets/music/sleepless.mp3");
+    this.load.audio("room_music", "assets/music/deldee.mp3");
+
+    // preloading sounds
+    this.load.audio("door_sound", "assets/sound/door.mp3");
   }
 
   create() {
     //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
     //  For example, you can define global animations here, so we can use them in other scenes.
-
     //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
     // this.scene.start('MainMenu');
-
     // this.input.once("pointerdown", () => {
     //   this.scene.start("MainMenu");
     // });
-
     // this.scene.start("World");
   }
 }

@@ -6,8 +6,15 @@ export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
   zones: any[];
+  private parentFunc: () => void;
 
-  constructor(scene: Scene, x: number, y: number, texture: string) {
+  constructor(
+    scene: Scene,
+    x: number,
+    y: number,
+    texture: string,
+    parentFunc: () => void,
+  ) {
     super(scene, x, y, texture, SPRITES.HIRO);
 
     const anims = this.scene.anims;
@@ -25,72 +32,83 @@ export class Hiro extends Entity {
 
     this.textureKey = texture;
 
+    // adding parent function
+    this.parentFunc = parentFunc;
+
     // calling function of key listening
     this.setupKeysListeners();
 
     // frame animations
-    anims.create({
-      key: "down",
-      frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [0, 5, 0, 6],
-      }),
-      frameRate: animsFrameRate,
-      repeat: -1,
-    });
+    if (!scene.anims.exists("down")) {
+      anims.create({
+        key: "down",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [0, 5, 0, 6],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
 
-    anims.create({
-      key: "left",
-      frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [1, 2],
-      }),
-      frameRate: animsFrameRate,
-      repeat: -1,
-    });
+    if (!scene.anims.exists("left")) {
+      anims.create({
+        key: "left",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [1, 2],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
 
-    anims.create({
-      key: "right",
-      frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [3, 4],
-      }),
-      frameRate: animsFrameRate,
-      repeat: -1,
-    });
+    if (!scene.anims.exists("right")) {
+      anims.create({
+        key: "right",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [3, 4],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
 
-    anims.create({
-      key: "up",
-      frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [7, 8, 9, 8],
-      }),
-      frameRate: animsFrameRate,
-      repeat: -1,
-    });
+    if (!scene.anims.exists("up")) {
+      anims.create({
+        key: "up",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [7, 8, 9, 8],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
   }
 
   // adding other zones in current scene
-  setZones(zones: GameObjects.Zone[]){
-    this.zones = zones
+  setZones(zones: GameObjects.Zone[]) {
+    this.zones = zones;
   }
 
   // function of finding our target (zone)
-  private findTarget(zones: GameObjects.Zone[]){
+  private findTarget(zones: GameObjects.Zone[]) {
     let target = null;
     let minDistance = Infinity;
 
-    for(const zone of zones){
-      const distance = Math.Distance.Between(this.x, this.y, zone.x, zone.y)
+    for (const zone of zones) {
+      const distance = Math.Distance.Between(this.x, this.y, zone.x, zone.y);
 
-      if(distance < minDistance){
+      if (distance < minDistance) {
         minDistance = distance;
         target = zone;
       }
     }
-    return target
+    return target;
   }
 
   // private function for action functions, like interact()
   private setupKeysListeners() {
     this.scene.input.keyboard.on("keydown-E", () => {
-      const target = this.findTarget(this.zones)
+      const target = this.findTarget(this.zones);
       // console.log(target)
       this.interact(target);
     });
@@ -98,15 +116,11 @@ export class Hiro extends Entity {
 
   // function for player interaction with items
   interact(target: any) {
-    const distance = Math.Distance.Between(
-      this.x,
-      this.y,
-      target.x,
-      target.y,
-    );
+    const distance = Math.Distance.Between(this.x, this.y, target.x, target.y);
 
     if (distance < 10) {
-      console.log("kurwa!");
+      // use parent function
+      this.parentFunc();
     }
   }
 

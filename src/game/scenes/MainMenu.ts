@@ -42,7 +42,6 @@ export class MainMenu extends Scene {
 
     this.input.keyboard.on("keydown-ENTER", () => {
       this.scene.stop();
-
       setTimeout(() => {
         this.scene.start("World");
       }, 1000);
