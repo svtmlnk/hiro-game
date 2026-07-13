@@ -2,6 +2,8 @@ import { GameObjects, Math, Scene } from "phaser";
 import { Entity } from "./entity";
 import { SPRITES } from "../utils/constants";
 
+type Side = 'up' | 'down' | 'left' | 'right';
+
 export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
@@ -13,6 +15,7 @@ export class Hiro extends Entity {
     x: number,
     y: number,
     texture: string,
+    side: Side,
     parentFunc: () => void,
   ) {
     super(scene, x, y, texture, SPRITES.HIRO);
@@ -37,7 +40,7 @@ export class Hiro extends Entity {
 
     // calling function of key listening
     this.setupKeysListeners();
-
+    
     // frame animations
     if (!scene.anims.exists("down")) {
       anims.create({
@@ -76,14 +79,17 @@ export class Hiro extends Entity {
       anims.create({
         key: "up",
         frames: anims.generateFrameNumbers(this.textureKey, {
-          frames: [7, 8, 9, 8],
+          frames: [8, 7, 8, 9],
         }),
         frameRate: animsFrameRate,
         repeat: -1,
       });
     }
-  }
 
+    // changing player side depending on scene 
+    this.play(`${side || 'down'}`, false);
+  }
+  
   // adding other zones in current scene
   setZones(zones: GameObjects.Zone[]) {
     this.zones = zones;

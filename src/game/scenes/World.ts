@@ -8,6 +8,8 @@ export class World extends Scene {
   // File of the first game world
 
   private hiro?: Hiro;
+  private spawnX = 400;
+  private spawnY = 250;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -20,6 +22,12 @@ export class World extends Scene {
   // preloading assets (only map)
   preload() {
     this.load.tilemapTiledJSON("world_map", worldJSON);
+  }
+
+  // getting positions from MainMenu.ts and Room.ts for changing player position
+  init(data: { x?: number; y?: number }) {
+    this.spawnX = data.x || 400;
+    this.spawnY = data.y || 250;
   }
 
   create() {
@@ -67,7 +75,7 @@ export class World extends Scene {
     );
 
     // adding hiro (player) in this world: scene, position x y, texture name and callback function for changing scene
-    this.hiro = new Hiro(this, 400, 250, SPRITES.HIRO, () =>
+    this.hiro = new Hiro(this, this.spawnX, this.spawnY, SPRITES.HIRO, "down", () =>
       this.changeScene(),
     );
 

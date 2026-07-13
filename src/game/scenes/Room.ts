@@ -42,7 +42,7 @@ export class Room extends Scene {
     const interiorLayer = map.createLayer(LAYERS.INTERIOR, tileset, 0, 0);
 
     // adding hiro (player) in this world: scene, position x y, texture name
-    this.hiro = new Hiro(this, 250, 250, SPRITES.HIRO, () =>
+    this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, 'up', () =>
       this.changeScene(),
     );
 
@@ -89,9 +89,9 @@ export class Room extends Scene {
     this.scene.stop();
     this.music.stop();
     this.door_sound.play();
-
+    
     setTimeout(() => {
-      this.scene.start("World");
+      this.scene.start("World", { x: 545, y: 540 });
     }, 1500);
   }
 
