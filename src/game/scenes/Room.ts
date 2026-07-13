@@ -41,7 +41,7 @@ export class Room extends Scene {
     // interior layer:
     const interiorLayer = map.createLayer(LAYERS.INTERIOR, tileset, 0, 0);
 
-    // adding hiro (player) in this world: scene, position x y, texture name
+    // adding hiro (player) in this world: scene, position x y, texture name, side and callback function
     this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, 'up', () =>
       this.changeScene(),
     );

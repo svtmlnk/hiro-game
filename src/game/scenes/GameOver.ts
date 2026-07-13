@@ -1,35 +1,68 @@
-import { Scene } from 'phaser';
+import { GameObjects, Scene, Sound } from "phaser";
+import { SPRITES } from "../utils/constants";
+import { Hiro } from "../entities/hiro";
 
-export class GameOver extends Scene
-{
-    camera: Phaser.Cameras.Scene2D.Camera;
-    background: Phaser.GameObjects.Image;
-    gameover_text : Phaser.GameObjects.Text;
+export class GameOver extends Scene {
+  private hiro?: Hiro;
+  interactionZone;
+  music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  bg: Phaser.GameObjects.Video;
+  text: GameObjects.Text;
 
-    constructor ()
-    {
-        super('GameOver');
-    }
+  constructor() {
+    super("GameOver");
+  }
 
-    create ()
-    {
-        this.camera = this.cameras.main
-        this.camera.setBackgroundColor(0xff0000);
+  // preloading assets
+  preload() {
+    // ...
+  }
 
-        this.background = this.add.image(320, 260, 'background');
-        this.background.setAlpha(0.5);
+  create() {
+    // adding video background
+    this.bg = this.add.video(640, 480, "bg").setOrigin(1);
+    this.bg.setScrollFactor(0);
+    this.bg.play();
 
-        this.gameover_text = this.add.text(320, 260, 'Game Over', {
-            fontFamily: 'Arial Black', fontSize: 64, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        });
-        this.gameover_text.setOrigin(0.5);
+    // adding hiro (player) in this world: scene, position x y, texture name, side and callback function
+    this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, "down", () => {});
 
-        this.input.once('pointerdown', () => {
+    // adding camera for player
+    this.cameras.main.startFollow(this.hiro);
+    // camera zoom
+    this.cameras.main.setZoom(2);
+    this.cameras.main.setBounds(0, 0, 500, 500);
+    this.physics.world.setBounds(0, 0, 500, 500);
+    this.hiro.setCollideWorldBounds(true);
 
-            this.scene.start('MainMenu');
+    // adding music
+    this.music = this.sound.add("pc_music", { loop: true });
+    this.music.play();
 
-        });
-    }
+    this.text = this.add
+      .text(320, 320, "Press F5 to restart", {
+        fontFamily: "PIXY",
+        fontSize: 16,
+        color: "#c9c9c9",
+        stroke: "#000000",
+        align: "center",
+      })
+      .setOrigin(0.5);
+    this.text.setAlpha(0);
+    this.text.setScrollFactor(0);
+
+    setTimeout(() => {
+      this.tweens.add({
+        targets: this.text,
+        alpha: { from: 0, to: 1 },
+        duration: 5000,
+        ease: "Linear",
+      });
+    }, 10000);
+  }
+
+  update(time: number, delta: number): void {
+    // update player position
+    this.hiro.update(time, delta);
+  }
 }

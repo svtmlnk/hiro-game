@@ -74,7 +74,7 @@ export class World extends Scene {
       0,
     );
 
-    // adding hiro (player) in this world: scene, position x y, texture name and callback function for changing scene
+    // adding hiro (player) in this world: scene, position x y, texture name, side and callback function for changing scene
     this.hiro = new Hiro(this, this.spawnX, this.spawnY, SPRITES.HIRO, "down", () =>
       this.changeScene(),
     );

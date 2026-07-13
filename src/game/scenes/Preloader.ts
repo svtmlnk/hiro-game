@@ -37,9 +37,12 @@ export class Preloader extends Scene {
     // preloading music
     this.load.audio("world_music", "assets/music/sleepless.mp3");
     this.load.audio("room_music", "assets/music/deldee.mp3");
+    this.load.audio("pc_music", "assets/music/taste_of_blood.mp3");
 
     // preloading sounds
     this.load.audio("door_sound", "assets/sound/door.mp3");
+
+    this.load.video("bg", "assets/video/bg.mp4")
   }
 
   create() {
