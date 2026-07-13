@@ -127,7 +127,7 @@ export class World extends Scene {
 
     setTimeout(() => {
       this.scene.start("Room");
-    }, 1500);
+    }, 2000);
   }
 
   update(time: number, delta: number): void {

@@ -13,22 +13,22 @@
             "scaleInDock": 1
         },
         "room.json": {
-            "scale": 3,
+            "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 269.16666666666663,
-                "y": 113.66666666666669
+                "x": 223.75,
+                "y": 148
             }
         },
         "room.json#interior": {
             "scaleInDock": 1
         },
         "world.json": {
-            "scale": 3,
+            "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 893.8333333333333,
-                "y": 674
+                "x": 566.25,
+                "y": 553.5
             }
         },
         "world.json#grass": {

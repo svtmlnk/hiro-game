@@ -92,7 +92,7 @@ export class Room extends Scene {
     
     setTimeout(() => {
       this.scene.start("World", { x: 545, y: 540 });
-    }, 1500);
+    }, 2000);
   }
 
   update(time: number, delta: number): void {
