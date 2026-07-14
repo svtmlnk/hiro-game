@@ -1,18 +1,30 @@
-import { Scene } from "phaser";
+import { Math, Scene } from "phaser";
 import { Entity } from "./entity";
 
 export class Enemy extends Entity {
-    constructor(scene: Scene, x: number, y: number, texture: string){
-        super(scene, x, y, texture);
-    }
+  private hiro: Entity;
+  constructor(scene: Scene, x: number, y: number, texture: string) {
+    super(scene, x, y, texture);
 
-    cycleTween(){
-        this.scene.tweens.add({
-            targets: this,
-            angle: 360,
-            duration: 1000,
-            ease: 'Linear',
-            repeat: -1
-        })
-    }
+    this.setSize(23, 23);
+  }
+
+  // getting our player from various scenes
+  setHiro(hiro: Entity) {
+    this.hiro = hiro;
+  }
+
+  runGlitch() {
+    console.log("glitch");
+  }
+
+  update() {
+    const hiro = this.hiro;
+    const distanceToHiro = Math.Distance.Between(
+      this.x,
+      this.y,
+      hiro.x,
+      hiro.y,
+    );
+  }
 }

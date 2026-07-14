@@ -40,7 +40,7 @@ export class GameOver extends Scene {
     this.music.play();
 
     this.text = this.add
-      .text(320, 320, "Press F5 to restart", {
+      .text(320, 320, "Press R to restart", {
         fontFamily: "PIXY",
         fontSize: 16,
         color: "#c9c9c9",
@@ -59,6 +59,15 @@ export class GameOver extends Scene {
         ease: "Linear",
       });
     }, 10000);
+
+    this.input.keyboard.on("keydown-R", () => {
+      this.scene.stop();
+      this.bg.stop();
+      this.music.stop();
+      setTimeout(() => {
+        this.scene.start("World", { x: 400, y: 250 });
+      }, 5000);
+    });
   }
 
   update(time: number, delta: number): void {

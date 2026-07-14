@@ -75,9 +75,7 @@ export class World extends Scene {
     );
 
     // adding hiro (player) in this world: scene, position x y, texture name, side and callback function for changing scene
-    this.hiro = new Hiro(this, this.spawnX, this.spawnY, SPRITES.HIRO, "down", () =>
-      this.changeScene(),
-    );
+    this.hiro = new Hiro(this, this.spawnX, this.spawnY, SPRITES.HIRO, "down", () => this.changeScene());
 
     // // adding enemy in this world
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
@@ -116,7 +114,7 @@ export class World extends Scene {
     this.interactionZone.body.setImmovable(true);
 
     // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setZones([this.interactionZone]);
+    this.hiro.setTargets([this.interactionZone]);
   }
 
   // function of changing scene

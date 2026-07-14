@@ -2,13 +2,15 @@ import { GameObjects, Math, Scene } from "phaser";
 import { Entity } from "./entity";
 import { SPRITES } from "../utils/constants";
 
-type Side = 'up' | 'down' | 'left' | 'right';
+type Side = "up" | "down" | "left" | "right";
 
 export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
-  zones: any[];
-  private parentFunc: () => void;
+  targets: GameObjects.Zone[] | Entity[];
+  // private parentFunc: () => void;
+  private parentFunc_changeScene: () => void;
+  private parentFunc_entityInteract: () => void;
 
   constructor(
     scene: Scene,
@@ -16,7 +18,8 @@ export class Hiro extends Entity {
     y: number,
     texture: string,
     side: Side,
-    parentFunc: () => void,
+    parentFunc_changeScene: () => void,
+    parentFunc_entityInteract?: () => void,
   ) {
     super(scene, x, y, texture, SPRITES.HIRO);
 
@@ -36,11 +39,12 @@ export class Hiro extends Entity {
     this.textureKey = texture;
 
     // adding parent function
-    this.parentFunc = parentFunc;
+    this.parentFunc_changeScene = parentFunc_changeScene;
+    this.parentFunc_entityInteract = parentFunc_entityInteract;
 
     // calling function of key listening
     this.setupKeysListeners();
-    
+
     // frame animations
     if (!scene.anims.exists("down")) {
       anims.create({
@@ -86,26 +90,31 @@ export class Hiro extends Entity {
       });
     }
 
-    // changing player side depending on scene 
-    this.play(`${side || 'down'}`, false);
-  }
-  
-  // adding other zones in current scene
-  setZones(zones: GameObjects.Zone[]) {
-    this.zones = zones;
+    // changing player side depending on scene
+    this.play(`${side || "down"}`, false);
   }
 
-  // function of finding our target (zone)
-  private findTarget(zones: GameObjects.Zone[]) {
+  // adding other targets (zones and entities/sprites) in current scene
+  setTargets(targets: GameObjects.Zone[] | Entity[]) {
+    this.targets = targets;
+  }
+
+  // setZones(zones: Entity[]) {
+  //   this.zones = zones;
+  // }
+
+  // function of finding our target (zone or entitiy/sprite)
+  // private findTarget(zones: Entity[]) {
+  private findTarget(targets: GameObjects.Zone[] | Entity[]) {
     let target = null;
     let minDistance = Infinity;
 
-    for (const zone of zones) {
-      const distance = Math.Distance.Between(this.x, this.y, zone.x, zone.y);
+    for (const trg of targets) {
+      const distance = Math.Distance.Between(this.x, this.y, trg.x, trg.y);
 
       if (distance < minDistance) {
         minDistance = distance;
-        target = zone;
+        target = trg;
       }
     }
     return target;
@@ -114,9 +123,10 @@ export class Hiro extends Entity {
   // private function for action functions, like interact()
   private setupKeysListeners() {
     this.scene.input.keyboard.on("keydown-E", () => {
-      const target = this.findTarget(this.zones);
+      const currentTarget = this.findTarget(this.targets);
       // console.log(target)
-      this.interact(target);
+      // console.log(target.type)
+      this.interact(currentTarget);
     });
   }
 
@@ -126,7 +136,12 @@ export class Hiro extends Entity {
 
     if (distance < 10) {
       // use parent function
-      this.parentFunc();
+      // this.parentFunc();
+      if (target.type == "Zone") {
+        this.parentFunc_changeScene();
+      } else {
+        this.parentFunc_entityInteract();
+      }
     }
   }
 

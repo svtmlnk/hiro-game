@@ -33,6 +33,10 @@ export class Preloader extends Scene {
       frameWidth: SIZES.HIRO.WIDTH,
       frameHeight: SIZES.HIRO.HEIGHT,
     });
+    this.load.spritesheet(SPRITES.ENEMY.base, "assets/characters/slime_enemy.png", {
+      frameWidth: SIZES.ENEMY.WIDTH,
+      frameHeight: SIZES.ENEMY.HEIGHT,
+    });
 
     // preloading music
     this.load.audio("world_music", "assets/music/sleepless.mp3");

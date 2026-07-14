@@ -2,12 +2,13 @@ import { Scene, Sound } from "phaser";
 import roomJSON from "../../../src/game/assets/room.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
-// import { Enemy } from "../entities/enemy";
+import { Enemy } from "../entities/enemy";
 
 export class Room extends Scene {
   // File of the first game world
 
   private hiro?: Hiro;
+  private enemy?: Enemy;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -42,12 +43,10 @@ export class Room extends Scene {
     const interiorLayer = map.createLayer(LAYERS.INTERIOR, tileset, 0, 0);
 
     // adding hiro (player) in this world: scene, position x y, texture name, side and callback function
-    this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, 'up', () =>
-      this.changeScene(),
-    );
+    this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, 'up', () => this.changeScene(), () => this.glitchFunc());
 
     // // adding enemy in this world
-    // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
+    this.enemy = new Enemy(this, 197, 163, SPRITES.ENEMY.base);
 
     // items up layer (adding this code after creating player for correctrly working)
     map.createLayer(LAYERS.INTERIOR_UP, tileset, 0, 0);
@@ -81,7 +80,7 @@ export class Room extends Scene {
     this.interactionZone.body.setImmovable(true);
 
     // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setZones([this.interactionZone]);
+    this.hiro.setTargets([this.interactionZone, this.enemy]);
   }
 
   // function of changing scene
@@ -93,6 +92,10 @@ export class Room extends Scene {
     setTimeout(() => {
       this.scene.start("World", { x: 545, y: 540 });
     }, 2000);
+  }
+
+  glitchFunc(){
+    this.enemy.runGlitch();
   }
 
   update(time: number, delta: number): void {

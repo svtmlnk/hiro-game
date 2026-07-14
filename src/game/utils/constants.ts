@@ -14,10 +14,10 @@ export const SIZES = {
         WIDTH: 49,
         HEIGHT: 60,
     },
-    // SLIME_ENEMY: {
-    //     WIDTH: 18,
-    //     HEIGHT: 17
-    // }
+    ENEMY: {
+        WIDTH: 18,
+        HEIGHT: 17
+    }
 }
 
 // layers of assets
@@ -34,7 +34,7 @@ export const LAYERS = {
 // sprite naming
 export const SPRITES = {
     HIRO: 'Hiro',
-    // SLIME_ENEMY: {
-    //     base: 'slime_enemy',
-    // }
+    ENEMY: {
+        base: 'slime_enemy',
+    }
 }
