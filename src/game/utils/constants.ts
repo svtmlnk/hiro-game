@@ -14,9 +14,9 @@ export const SIZES = {
         WIDTH: 49,
         HEIGHT: 60,
     },
-    ENEMY: {
-        WIDTH: 18,
-        HEIGHT: 17
+    GLITCH: {
+        WIDTH: 16,
+        HEIGHT: 16
     }
 }
 
@@ -34,7 +34,7 @@ export const LAYERS = {
 // sprite naming
 export const SPRITES = {
     HIRO: 'Hiro',
-    ENEMY: {
-        base: 'slime_enemy',
+    GLITCH: {
+        base: 'glitch',
     }
 }

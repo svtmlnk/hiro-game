@@ -2,13 +2,13 @@ import { Scene, Sound } from "phaser";
 import roomJSON from "../../../src/game/assets/room.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
-import { Enemy } from "../entities/enemy";
+import { Glitch } from "../entities/glitch";
 
 export class Room extends Scene {
   // File of the first game world
 
   private hiro?: Hiro;
-  private enemy?: Enemy;
+  private glitch?: Glitch;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -43,10 +43,18 @@ export class Room extends Scene {
     const interiorLayer = map.createLayer(LAYERS.INTERIOR, tileset, 0, 0);
 
     // adding hiro (player) in this world: scene, position x y, texture name, side and callback function
-    this.hiro = new Hiro(this, 304, 270, SPRITES.HIRO, 'up', () => this.changeScene(), () => this.glitchFunc());
+    this.hiro = new Hiro(
+      this,
+      304,
+      270,
+      SPRITES.HIRO,
+      "up",
+      () => this.changeScene(),
+      () => this.glitchFunc(),
+    );
 
-    // // adding enemy in this world
-    this.enemy = new Enemy(this, 197, 163, SPRITES.ENEMY.base);
+    // // adding enemy (glitch) in this world
+    this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
 
     // items up layer (adding this code after creating player for correctrly working)
     map.createLayer(LAYERS.INTERIOR_UP, tileset, 0, 0);
@@ -80,7 +88,7 @@ export class Room extends Scene {
     this.interactionZone.body.setImmovable(true);
 
     // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([this.interactionZone, this.enemy]);
+    this.hiro.setTargets([this.interactionZone, this.glitch]);
   }
 
   // function of changing scene
@@ -88,14 +96,26 @@ export class Room extends Scene {
     this.scene.stop();
     this.music.stop();
     this.door_sound.play();
-    
+
     setTimeout(() => {
       this.scene.start("World", { x: 545, y: 540 });
     }, 2000);
   }
 
-  glitchFunc(){
-    this.enemy.runGlitch();
+  // update this function. It should be in glitch.ts (runGlitch)
+  glitchFunc() {
+    this.hiro.deadFunc();
+    this.scene.pause();
+    this.music.stop();
+    this.glitch.runGlitch();
+    
+    setTimeout(() => {
+      this.scene.stop();
+    }, 3500);
+
+    setTimeout(() => {
+      this.scene.start("GameOver", { x: 545, y: 540 });
+    }, 7000);
   }
 
   update(time: number, delta: number): void {

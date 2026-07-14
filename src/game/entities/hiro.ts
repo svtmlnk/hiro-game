@@ -90,8 +90,23 @@ export class Hiro extends Entity {
       });
     }
 
+    if (!scene.anims.exists("dead")) {
+      anims.create({
+        key: "dead",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [10],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
+
     // changing player side depending on scene
     this.play(`${side || "down"}`, false);
+  }
+  
+  deadFunc(){
+    this.play("dead", false);
   }
 
   // adding other targets (zones and entities/sprites) in current scene

@@ -33,9 +33,9 @@ export class Preloader extends Scene {
       frameWidth: SIZES.HIRO.WIDTH,
       frameHeight: SIZES.HIRO.HEIGHT,
     });
-    this.load.spritesheet(SPRITES.ENEMY.base, "assets/characters/slime_enemy.png", {
-      frameWidth: SIZES.ENEMY.WIDTH,
-      frameHeight: SIZES.ENEMY.HEIGHT,
+    this.load.spritesheet(SPRITES.GLITCH.base, "assets/characters/glitch.png", {
+      frameWidth: SIZES.GLITCH.WIDTH,
+      frameHeight: SIZES.GLITCH.HEIGHT,
     });
 
     // preloading music
@@ -45,6 +45,7 @@ export class Preloader extends Scene {
 
     // preloading sounds
     this.load.audio("door_sound", "assets/sound/door.mp3");
+    this.load.audio("glitch_sound", "assets/sound/glitch.mp3");
 
     this.load.video("bg", "assets/video/bg.mp4")
   }
