@@ -26,6 +26,9 @@ export class Room extends Scene {
     // adding world map
     const map = this.make.tilemap({ key: "room_map" });
 
+    // random spawning glitch entity
+    const shouldSpawnGlitch = Math.random() < 0.5;
+
     // adding sprites for this world
     // floor:
     const tileset = map.addTilesetImage(
@@ -53,8 +56,10 @@ export class Room extends Scene {
       () => this.glitchFunc()
     );
 
-    // adding enemy (glitch) in this world
-    this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    // adding randomly enemy (glitch) in this world
+    if(shouldSpawnGlitch){
+      this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    }
 
     // items up layer (adding this code after creating player for correctrly working)
     map.createLayer(LAYERS.INTERIOR_UP, tileset, 0, 0);
