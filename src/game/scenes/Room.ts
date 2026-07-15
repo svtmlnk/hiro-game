@@ -50,10 +50,10 @@ export class Room extends Scene {
       SPRITES.HIRO,
       "up",
       () => this.changeScene(),
-      () => this.glitchFunc(),
+      () => this.glitchFunc()
     );
 
-    // // adding enemy (glitch) in this world
+    // adding enemy (glitch) in this world
     this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -102,20 +102,33 @@ export class Room extends Scene {
     }, 2000);
   }
 
-  // update this function. It should be in glitch.ts (runGlitch)
+  // This functionality should be in glitch.ts (runGlitch)
   glitchFunc() {
     this.hiro.deadFunc();
-    this.scene.pause();
+    this.hiro.disableBody(true, false);
+    this.hiro.movePlayer = false;
     this.music.stop();
     this.glitch.runGlitch();
-    
-    setTimeout(() => {
-      this.scene.stop();
-    }, 3500);
+
+    this.tweens.add({
+      targets: this.cameras.main,
+      zoom: { from: 2, to: 5 },
+      duration: 5000,
+      ease: "Linear",
+    });
+
+    // camera shaking
+    this.cameras.main.shake();
+
+    // Listen for the complete event to cycle the shake
+    this.cameras.main.on("camerashakecomplete", () => {
+      // Wait briefly or instantly trigger the next shake
+      this.cameras.main.shake();
+    });
 
     setTimeout(() => {
       this.scene.start("GameOver", { x: 545, y: 540 });
-    }, 7000);
+    }, 3200);
   }
 
   update(time: number, delta: number): void {

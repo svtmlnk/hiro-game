@@ -7,6 +7,7 @@ type Side = "up" | "down" | "left" | "right";
 export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
+  movePlayer: boolean;
   targets: GameObjects.Zone[] | Entity[];
   // private parentFunc: () => void;
   private parentFunc_changeScene: () => void;
@@ -28,6 +29,8 @@ export class Hiro extends Entity {
     const animsFrameRate = 4;
     // player speed
     this.moveSpeed = 8;
+    // boolean of moving player
+    this.movePlayer = true;
 
     // hitbox size and position
     this.setSize(30, 10);
@@ -164,21 +167,23 @@ export class Hiro extends Entity {
     // moving controls
     const keys = this.scene.input.keyboard.createCursorKeys();
 
-    if (keys.up.isDown) {
-      this.play("up", true);
-      this.setVelocity(0, -delta * this.moveSpeed);
-    } else if (keys.down.isDown) {
-      this.setVelocity(0, delta * this.moveSpeed);
-      this.play("down", true);
-    } else if (keys.left.isDown) {
-      this.setVelocity(-delta * this.moveSpeed, 0);
-      this.play("left", true);
-    } else if (keys.right.isDown) {
-      this.setVelocity(delta * this.moveSpeed, 0);
-      this.play("right", true);
-    } else {
-      this.setVelocity(0);
-      this.stop();
+    if(this.movePlayer){
+      if (keys.up.isDown) {
+        this.play("up", true);
+        this.setVelocity(0, -delta * this.moveSpeed);
+      } else if (keys.down.isDown) {
+        this.setVelocity(0, delta * this.moveSpeed);
+        this.play("down", true);
+      } else if (keys.left.isDown) {
+        this.setVelocity(-delta * this.moveSpeed, 0);
+        this.play("left", true);
+      } else if (keys.right.isDown) {
+        this.setVelocity(delta * this.moveSpeed, 0);
+        this.play("right", true);
+      } else {
+        this.setVelocity(0);
+        this.stop();
+      }
     }
 
     // returning time for removing warning by TypeScript

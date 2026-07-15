@@ -1,10 +1,13 @@
-import { Math, Scene, Sound } from "phaser";
+import { Scene, Sound } from "phaser";
 import { Entity } from "./entity";
 
 export class Glitch extends Entity {
-  private hiro: Entity;
+  // private hiro: Entity;
   textureKey: string;
-  glitch_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  glitch_sound:
+    | Sound.NoAudioSound
+    | Sound.HTML5AudioSound
+    | Sound.WebAudioSound;
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
 
@@ -32,23 +35,22 @@ export class Glitch extends Entity {
     this.play("exist", true);
   }
 
-  // getting our player from various scenes
-  setHiro(hiro: Entity) {
-    this.hiro = hiro;
-  }
+  // // getting player from various scenes
+  // setHiro(hiro: Entity) {
+  //   this.hiro = hiro;
+  // }
 
   runGlitch() {
     this.glitch_sound.play();
-    // console.log("glitch");
   }
 
-  update() {
-    const hiro = this.hiro;
-    const distanceToHiro = Math.Distance.Between(
-      this.x,
-      this.y,
-      hiro.x,
-      hiro.y,
-    );
-  }
+  // update() {
+  //   const hiro = this.hiro;
+  //   const distanceToHiro = Math.Distance.Between(
+  //     this.x,
+  //     this.y,
+  //     hiro.x,
+  //     hiro.y,
+  //   );
+  // }
 }
