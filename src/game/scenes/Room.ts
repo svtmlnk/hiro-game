@@ -27,7 +27,7 @@ export class Room extends Scene {
     const map = this.make.tilemap({ key: "room_map" });
 
     // random spawning glitch entity
-    const shouldSpawnGlitch = Math.random() < 0.5;
+    const shouldSpawnGlitch = Math.random() < 0.1;
 
     // adding sprites for this world
     // floor:
@@ -53,12 +53,13 @@ export class Room extends Scene {
       SPRITES.HIRO,
       "up",
       () => this.changeScene(),
-      () => this.glitchFunc()
+      () => this.glitchFunc(),
     );
 
     // adding randomly enemy (glitch) in this world
-    if(shouldSpawnGlitch){
+    if (shouldSpawnGlitch) {
       this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+      console.log("spawn");
     }
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -93,7 +94,15 @@ export class Room extends Scene {
     this.interactionZone.body.setImmovable(true);
 
     // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([this.interactionZone, this.glitch]);
+    // this.hiro.setTargets([this.interactionZone, shouldSpawnGlitch ? this.glitch]);
+    const targets = [this.interactionZone];
+
+    // we are andding glitch in this array for player interaction with glitch
+    if (shouldSpawnGlitch && this.glitch) {
+      targets.push(this.glitch);
+    }
+
+    this.hiro.setTargets(targets);
   }
 
   // function of changing scene
