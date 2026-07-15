@@ -42,6 +42,10 @@ export class Glitch extends Entity {
 
   runGlitch() {
     this.glitch_sound.play();
+
+    // setTimeout(() => {
+    //   this.scene.scene.start("GameOver", { x: 545, y: 540 });
+    // }, 3200);
   }
 
   // update() {

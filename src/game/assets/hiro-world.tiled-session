@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "room.json",
+    "activeFile": "world.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -16,8 +16,8 @@
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 223.75,
-                "y": 148
+                "x": 237.75,
+                "y": 137
             }
         },
         "room.json#interior": {
@@ -27,8 +27,8 @@
             "scale": 2,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 566.25,
-                "y": 553.5
+                "x": 596.25,
+                "y": 542
             }
         },
         "world.json#grass": {
@@ -73,8 +73,8 @@
     ],
     "project": "hiro-world.tiled-project",
     "recentFiles": [
-        "world.json",
         "room.json",
+        "world.json",
         "world.tmx"
     ],
     "tileset.embedInMap": true,

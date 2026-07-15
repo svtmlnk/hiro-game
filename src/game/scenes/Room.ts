@@ -27,7 +27,7 @@ export class Room extends Scene {
     const map = this.make.tilemap({ key: "room_map" });
 
     // random spawning glitch entity
-    const shouldSpawnGlitch = Math.random() < 0.5;
+    // const shouldSpawnGlitch = Math.random() < 0.5;
 
     // adding sprites for this world
     // floor:
@@ -88,17 +88,19 @@ export class Room extends Scene {
     this.interactionZone.body.setImmovable(true);
 
     // adding randomly enemy (glitch) in this world
-    if (shouldSpawnGlitch) {
-      this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
-      console.log("spawn");
-      
-      // adding zones in this array for function setZone (hiro.ts)
-      this.hiro.setTargets([this.interactionZone, this.glitch]);
-    }
-    else{
-      this.hiro.setTargets([this.interactionZone]);
-    }
+    // if (shouldSpawnGlitch) {
+    // this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    //   console.log("spawn");
 
+    //   // adding zones in this array for function setZone (hiro.ts)
+    //   this.hiro.setTargets([this.interactionZone, this.glitch]);
+    // }
+    // else{
+    //   this.hiro.setTargets([this.interactionZone]);
+    // }
+
+    this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    this.hiro.setTargets([this.interactionZone, this.glitch]);
   }
 
   // function of changing scene
@@ -122,7 +124,7 @@ export class Room extends Scene {
 
     this.tweens.add({
       targets: this.cameras.main,
-      zoom: { from: 2, to: 5 },
+      zoom: { from: 2, to: 10 },
       duration: 5000,
       ease: "Linear",
     });
