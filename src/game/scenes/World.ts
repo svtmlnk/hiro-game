@@ -2,13 +2,14 @@ import { Scene, Sound } from "phaser";
 import worldJSON from "../../../src/game/assets/world.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
-// import { Enemy } from "../entities/enemy";
+import { Glitch } from "../entities/glitch";
 
 export class World extends Scene {
   // File of the first game world
   private hiro?: Hiro;
   private spawnX = 400;
   private spawnY = 250;
+  private glitch?: Glitch;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -73,7 +74,15 @@ export class World extends Scene {
     );
 
     // adding hiro (player) in this world: scene, position x y, texture name, side and callback function for changing scene
-    this.hiro = new Hiro(this, this.spawnX, this.spawnY, SPRITES.HIRO, "down", () => this.changeScene());
+    this.hiro = new Hiro(
+      this,
+      this.spawnX,
+      this.spawnY,
+      SPRITES.HIRO,
+      "down",
+      () => this.changeScene(),
+      () => this.glitch.runGlitch(),
+    );
 
     // // adding enemy in this world
     // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
@@ -111,8 +120,13 @@ export class World extends Scene {
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
+    // adding glitch in this world, getting player and music info for their changing
+    this.glitch = new Glitch(this, 881, 862, SPRITES.GLITCH.base);
+    this.glitch.setHiro(this.hiro);
+    this.glitch.setMusicFromScene(this.music);
+
     // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([this.interactionZone]);
+    this.hiro.setTargets([this.interactionZone, this.glitch]);
   }
 
   // function of changing scene

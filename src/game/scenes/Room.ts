@@ -2,11 +2,9 @@ import { Scene, Sound } from "phaser";
 import roomJSON from "../../../src/game/assets/room.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
-import { Glitch } from "../entities/glitch";
 
 export class Room extends Scene {
   private hiro?: Hiro;
-  private glitch?: Glitch;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -50,8 +48,7 @@ export class Room extends Scene {
       270,
       SPRITES.HIRO,
       "up",
-      () => this.changeScene(),
-      () => this.glitch.runGlitch(),
+      () => this.changeScene()
     );
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -85,13 +82,13 @@ export class Room extends Scene {
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
-    // adding glitch in this world, getting player and music info for their changing
-    this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
-    this.glitch.setHiro(this.hiro);
-    this.glitch.setMusicFromScene(this.music);
+    // // adding glitch in this world, getting player and music info for their changing
+    // this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    // this.glitch.setHiro(this.hiro);
+    // this.glitch.setMusicFromScene(this.music);
 
     // adding targets for player interaction with interactive elements
-    this.hiro.setTargets([this.interactionZone, this.glitch]);
+    this.hiro.setTargets([this.interactionZone]);
   }
 
   // function of changing scene
