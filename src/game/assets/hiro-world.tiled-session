@@ -3,13 +3,27 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "world.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
         "": {
+            "scaleInDock": 1
+        },
+        "#interior": {
+            "scaleInDock": 1
+        },
+        "basement.json": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 167.5,
+                "y": 93
+            }
+        },
+        "basement.json#interior": {
             "scaleInDock": 1
         },
         "forest.json": {
@@ -41,8 +55,8 @@
             "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 540,
-                "y": 547.9999999999999
+                "x": 684,
+                "y": 526.6666666666667
             }
         },
         "world.json#grass": {
@@ -76,19 +90,18 @@
         }
     },
     "last.imagePath": "C:/Users/Slava/Desktop/hiro-game/public/assets/sprites",
-    "map.height": 30,
+    "map.height": 5,
     "map.lastUsedFormat": "json",
     "map.tileHeight": 32,
     "map.tileWidth": 32,
-    "map.width": 30,
+    "map.width": 10,
     "openFiles": [
-        "world.json",
-        "room.json"
     ],
     "project": "hiro-world.tiled-project",
     "recentFiles": [
-        "room.json",
         "world.json",
+        "room.json",
+        "basement.json",
         "forest.json",
         "world.tmx"
     ],

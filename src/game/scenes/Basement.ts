@@ -1,26 +1,25 @@
 import { Scene, Sound } from "phaser";
-import roomJSON from "../../../src/game/assets/room.json";
+import basementJSON from "../../../src/game/assets/basement.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 
-export class Room extends Scene {
+export class Basement extends Scene {
   private hiro?: Hiro;
   interactionZone;
-  music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
   constructor() {
-    super("Room");
+    super("Basement");
   }
 
   // preloading assets (only map)
   preload() {
-    this.load.tilemapTiledJSON("room_map", roomJSON);
+    this.load.tilemapTiledJSON("basement_map", basementJSON);
   }
 
   create() {
     // adding world map
-    const map = this.make.tilemap({ key: "room_map" });
+    const map = this.make.tilemap({ key: "basement_map" });
 
     // random spawning glitch entity
     // const shouldSpawnGlitch = Math.random() < 0.5;
@@ -28,7 +27,7 @@ export class Room extends Scene {
     // adding sprites for this world
     // floor:
     const tileset = map.addTilesetImage(
-      roomJSON.tilesets[0].name,
+      basementJSON.tilesets[0].name,
       TILES.ROOM,
       SIZES.TILES,
       SIZES.TILES,
@@ -44,10 +43,10 @@ export class Room extends Scene {
     // adding hiro (player) in this world: scene, position x y, texture name, side and callback function
     this.hiro = new Hiro(
       this,
-      304,
-      270,
+      47,
+      20,
       SPRITES.HIRO,
-      "up",
+      "down",
       () => this.changeScene()
     );
 
@@ -69,15 +68,11 @@ export class Room extends Scene {
     this.physics.add.collider(this.hiro, interiorLayer);
     interiorLayer.setCollisionByExclusion([-1]);
 
-    // adding music
-    this.music = this.sound.add("room_music", { loop: true });
-    this.music.play();
-
     // adding door sound
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(305, 270, 20, 20);
+    this.interactionZone = this.add.zone(47, 1, 20, 20);
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
@@ -89,11 +84,10 @@ export class Room extends Scene {
   // function of changing scene
   changeScene() {
     this.scene.stop();
-    this.music.stop();
     this.door_sound.play();
 
     setTimeout(() => {
-      this.scene.start("World", { x: 545, y: 540 });
+      this.scene.start("World", { x: 544, y: 431 });
     }, 2000);
   }
 

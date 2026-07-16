@@ -11,6 +11,7 @@ export class World extends Scene {
   private spawnY = 250;
   private glitch?: Glitch;
   interactionZone;
+  // basementZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
@@ -84,9 +85,6 @@ export class World extends Scene {
       () => this.glitch.runGlitch(),
     );
 
-    // // adding enemy in this world
-    // this.slime_enemy = new Enemy(this, 530, 350, SPRITES.SLIME_ENEMY.base);
-
     // items up layer (adding this code after creating player for correctrly working)
     map.createLayer(LAYERS.ITEMS_UP, [tileItemset, tileHouseset], 0, 0);
 
@@ -114,11 +112,15 @@ export class World extends Scene {
 
     // adding interaction zone
     this.interactionZone = this.add.zone(544, 535, 20, 20);
-    // console.log(typeof this.interactionZone)
-    // console.log(this.interactionZone.x)
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
+
+    // // adding basement zone
+    // this.basementZone = this.add.zone(544, 425, 20, 20);
+    // this.physics.add.existing(this.basementZone);
+    // this.basementZone.body.setAllowGravity(false);
+    // this.basementZone.body.setImmovable(true);
 
     // adding glitch in this world, getting player and music info for their changing
     this.glitch = new Glitch(this, 881, 862, SPRITES.GLITCH.base);
@@ -136,7 +138,7 @@ export class World extends Scene {
     this.door_sound.play();
 
     setTimeout(() => {
-      this.scene.start("Room");
+      this.scene.start(`Room`);
     }, 2000);
   }
 
