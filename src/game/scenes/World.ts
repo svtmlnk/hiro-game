@@ -6,14 +6,12 @@ import { Hiro } from "../entities/hiro";
 
 export class World extends Scene {
   // File of the first game world
-
   private hiro?: Hiro;
   private spawnX = 400;
   private spawnY = 250;
   interactionZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
-  // private slime_enemy?: Enemy;
 
   constructor() {
     super("World");

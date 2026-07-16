@@ -1,13 +1,14 @@
 import { Scene, Sound } from "phaser";
 import { Entity } from "./entity";
+import { GameOverManager } from "../utils/gameOver";
+import { Hiro } from "./hiro";
 
 export class Glitch extends Entity {
-  // private hiro: Entity;
+  private hiro: Hiro;
   textureKey: string;
-  glitch_sound:
-    | Sound.NoAudioSound
-    | Sound.HTML5AudioSound
-    | Sound.WebAudioSound;
+  private music: Sound.BaseSound;
+  glitch_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
 
@@ -35,26 +36,16 @@ export class Glitch extends Entity {
     this.play("exist", true);
   }
 
-  // // getting player from various scenes
-  // setHiro(hiro: Entity) {
-  //   this.hiro = hiro;
-  // }
-
-  runGlitch() {
-    this.glitch_sound.play();
-
-    // setTimeout(() => {
-    //   this.scene.scene.start("GameOver", { x: 545, y: 540 });
-    // }, 3200);
+  // getting player from various scenes
+  setHiro(hiro: Hiro) {
+    this.hiro = hiro;
   }
 
-  // update() {
-  //   const hiro = this.hiro;
-  //   const distanceToHiro = Math.Distance.Between(
-  //     this.x,
-  //     this.y,
-  //     hiro.x,
-  //     hiro.y,
-  //   );
-  // }
+  setMusicFromScene(music: Sound.BaseSound){
+    this.music = music;
+  }
+
+  runGlitch() {
+    GameOverManager.run(this.scene, this.hiro, this.glitch_sound, this.music);
+  }
 }

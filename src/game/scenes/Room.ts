@@ -5,8 +5,6 @@ import { Hiro } from "../entities/hiro";
 import { Glitch } from "../entities/glitch";
 
 export class Room extends Scene {
-  // File of the first game world
-
   private hiro?: Hiro;
   private glitch?: Glitch;
   interactionZone;
@@ -53,7 +51,7 @@ export class Room extends Scene {
       SPRITES.HIRO,
       "up",
       () => this.changeScene(),
-      () => this.glitchFunc(),
+      () => this.glitch.runGlitch(),
     );
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -87,19 +85,12 @@ export class Room extends Scene {
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
-    // adding randomly enemy (glitch) in this world
-    // if (shouldSpawnGlitch) {
-    // this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
-    //   console.log("spawn");
-
-    //   // adding zones in this array for function setZone (hiro.ts)
-    //   this.hiro.setTargets([this.interactionZone, this.glitch]);
-    // }
-    // else{
-    //   this.hiro.setTargets([this.interactionZone]);
-    // }
-
+    // adding glitch in this world, getting player and music info for their changing
     this.glitch = new Glitch(this, 197, 163, SPRITES.GLITCH.base);
+    this.glitch.setHiro(this.hiro);
+    this.glitch.setMusicFromScene(this.music);
+
+    // adding targets for player interaction with interactive elements
     this.hiro.setTargets([this.interactionZone, this.glitch]);
   }
 
@@ -112,35 +103,6 @@ export class Room extends Scene {
     setTimeout(() => {
       this.scene.start("World", { x: 545, y: 540 });
     }, 2000);
-  }
-
-  // This functionality should be in glitch.ts (runGlitch)
-  glitchFunc() {
-    this.hiro.deadFunc();
-    this.hiro.disableBody(true, false);
-    this.hiro.movePlayer = false;
-    this.music.stop();
-    this.glitch.runGlitch();
-
-    this.tweens.add({
-      targets: this.cameras.main,
-      zoom: { from: 2, to: 10 },
-      duration: 5000,
-      ease: "Linear",
-    });
-
-    // camera shaking
-    this.cameras.main.shake();
-
-    // Listen for the complete event to cycle the shake
-    this.cameras.main.on("camerashakecomplete", () => {
-      // Wait briefly or instantly trigger the next shake
-      this.cameras.main.shake();
-    });
-
-    setTimeout(() => {
-      this.scene.start("GameOver", { x: 545, y: 540 });
-    }, 3200);
   }
 
   update(time: number, delta: number): void {
