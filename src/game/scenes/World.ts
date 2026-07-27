@@ -117,7 +117,7 @@ export class World extends Scene {
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
-    
+
     // adding basement zone
     this.basementZone = this.add.zone(544, 425, 20, 20);
     this.basementZone.name = "Basement";
@@ -131,7 +131,11 @@ export class World extends Scene {
     this.glitch.setMusicFromScene(this.music);
 
     // adding zones and other objects in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([this.interactionZone, this.basementZone, this.glitch]);
+    this.hiro.setTargets([
+      this.interactionZone,
+      this.basementZone,
+      this.glitch,
+    ]);
   }
 
   // function of changing scene
@@ -139,7 +143,6 @@ export class World extends Scene {
     this.scene.stop();
     this.music.stop();
     this.door_sound.play();
-
     setTimeout(() => {
       this.scene.start(`${zoneName}`);
     }, 2000);
