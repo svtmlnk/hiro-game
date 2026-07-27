@@ -10,7 +10,8 @@ export class Hiro extends Entity {
   movePlayer: boolean;
   targets: GameObjects.Zone[] | Entity[];
   // private parentFunc: () => void;
-  private parentFunc_changeScene: () => void;
+  // for changing scenes to our nedded scene we are getting zone name from interact()
+  private parentFunc_changeScene: (zoneName: string) => void;
   private parentFunc_entityInteract: () => void;
 
   constructor(
@@ -19,7 +20,8 @@ export class Hiro extends Entity {
     y: number,
     texture: string,
     side: Side,
-    parentFunc_changeScene: () => void,
+    // for changing scenes to our nedded scene we are getting zone name from interact()
+    parentFunc_changeScene: (zoneName: string) => void,
     parentFunc_entityInteract?: () => void,
   ) {
     super(scene, x, y, texture, SPRITES.HIRO);
@@ -107,8 +109,8 @@ export class Hiro extends Entity {
     // changing player side depending on scene
     this.play(`${side || "down"}`, false);
   }
-  
-  deadFunc(){
+
+  deadFunc() {
     this.play("dead", false);
   }
 
@@ -142,8 +144,6 @@ export class Hiro extends Entity {
   private setupKeysListeners() {
     this.scene.input.keyboard.on("keydown-E", () => {
       const currentTarget = this.findTarget(this.targets);
-      // console.log(target)
-      // console.log(target.type)
       this.interact(currentTarget);
     });
   }
@@ -156,7 +156,8 @@ export class Hiro extends Entity {
       // use parent function
       // this.parentFunc();
       if (target.type == "Zone") {
-        this.parentFunc_changeScene();
+        // we are getting zone name from target (zone target from World.ts or another parent scene file) for changing scenes to our nedded scene
+        this.parentFunc_changeScene(target.name);
       } else {
         this.parentFunc_entityInteract();
       }
@@ -167,7 +168,7 @@ export class Hiro extends Entity {
     // moving controls
     const keys = this.scene.input.keyboard.createCursorKeys();
 
-    if(this.movePlayer){
+    if (this.movePlayer) {
       if (keys.up.isDown) {
         this.play("up", true);
         this.setVelocity(0, -delta * this.moveSpeed);

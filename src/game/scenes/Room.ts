@@ -78,6 +78,7 @@ export class Room extends Scene {
 
     // adding interaction zone
     this.interactionZone = this.add.zone(305, 270, 20, 20);
+    this.interactionZone.name = "World"
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);

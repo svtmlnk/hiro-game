@@ -11,6 +11,7 @@ export class World extends Scene {
   private spawnY = 250;
   private glitch?: Glitch;
   interactionZone;
+  basementZone;
   // basementZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -81,7 +82,7 @@ export class World extends Scene {
       this.spawnY,
       SPRITES.HIRO,
       "down",
-      () => this.changeScene(),
+      (zoneName) => this.changeScene(zoneName),
       () => this.glitch.runGlitch(),
     );
 
@@ -112,33 +113,35 @@ export class World extends Scene {
 
     // adding interaction zone
     this.interactionZone = this.add.zone(544, 535, 20, 20);
+    this.interactionZone.name = "Room";
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
-
-    // // adding basement zone
-    // this.basementZone = this.add.zone(544, 425, 20, 20);
-    // this.physics.add.existing(this.basementZone);
-    // this.basementZone.body.setAllowGravity(false);
-    // this.basementZone.body.setImmovable(true);
+    
+    // adding basement zone
+    this.basementZone = this.add.zone(544, 425, 20, 20);
+    this.basementZone.name = "Basement";
+    this.physics.add.existing(this.basementZone);
+    this.basementZone.body.setAllowGravity(false);
+    this.basementZone.body.setImmovable(true);
 
     // adding glitch in this world, getting player and music info for their changing
     this.glitch = new Glitch(this, 881, 862, SPRITES.GLITCH.base);
     this.glitch.setHiro(this.hiro);
     this.glitch.setMusicFromScene(this.music);
 
-    // adding zones in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([this.interactionZone, this.glitch]);
+    // adding zones and other objects in this array for function setZone (hiro.ts)
+    this.hiro.setTargets([this.interactionZone, this.basementZone, this.glitch]);
   }
 
   // function of changing scene
-  changeScene() {
+  changeScene(zoneName: string) {
     this.scene.stop();
     this.music.stop();
     this.door_sound.play();
 
     setTimeout(() => {
-      this.scene.start(`Room`);
+      this.scene.start(`${zoneName}`);
     }, 2000);
   }
 
