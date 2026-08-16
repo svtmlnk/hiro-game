@@ -3,7 +3,12 @@ import { Hiro } from "../entities/hiro";
 
 // this file is responsiblew for running game over effects and scene in various scenes, when player interacted with glitch entity
 export class GameOverManager {
-  static run(scene: Scene, hiro: Hiro, sound: Sound.BaseSound, music?: Sound.BaseSound) {
+  static run(
+    scene: Scene,
+    hiro: Hiro,
+    sound: Sound.BaseSound,
+    music?: Sound.BaseSound,
+  ) {
     hiro.deadFunc();
     hiro.disableBody(true, false);
     hiro.movePlayer = false;
@@ -25,7 +30,8 @@ export class GameOverManager {
     });
 
     setTimeout(() => {
-      scene.scene.start("GameOver");
+      const chance = Math.floor(Math.random() * 100) + 1;
+      scene.scene.start(chance <= 100 ? "Reality" : "GameOver");
     }, 3200);
   }
 }

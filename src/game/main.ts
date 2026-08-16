@@ -6,6 +6,7 @@ import { MainMenu } from './scenes/MainMenu';
 import { Room } from './scenes/Room';
 import { GameOver } from './scenes/GameOver';
 import { Basement } from './scenes/Basement';
+import { Reality } from './scenes/Reality';
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -35,7 +36,8 @@ const config: Phaser.Types.Core.GameConfig = {
         World,
         Room,
         Basement,
-        GameOver
+        GameOver,
+        Reality
     ]
 };
 

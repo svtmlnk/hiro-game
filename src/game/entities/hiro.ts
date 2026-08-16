@@ -144,7 +144,9 @@ export class Hiro extends Entity {
   private setupKeysListeners() {
     this.scene.input.keyboard.on("keydown-E", () => {
       const currentTarget = this.findTarget(this.targets);
-      this.interact(currentTarget);
+      if (this.movePlayer) {
+        this.interact(currentTarget);
+      }
     });
   }
 

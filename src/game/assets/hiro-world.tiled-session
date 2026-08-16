@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "world.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -53,7 +53,7 @@
         },
         "world.json": {
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
                 "x": 684,
                 "y": 526.6666666666667
@@ -96,6 +96,7 @@
     "map.tileWidth": 32,
     "map.width": 10,
     "openFiles": [
+        "world.json"
     ],
     "project": "hiro-world.tiled-project",
     "recentFiles": [
