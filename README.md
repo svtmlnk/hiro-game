@@ -1,7 +1,7 @@
 <p align="center">--------------------------------------------------------- Project: HIRO ---------------------------------------------------------</p>
 
 <div align="center">
-    <a>https://svtmlnk.github.io/hiro-game/</a>
+    <a href="https://svtmlnk.github.io/hiro-game/">Run game</a>
 </div>
 
 ###
