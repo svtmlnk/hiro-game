@@ -7,7 +7,10 @@ export class Glitch extends Entity {
   private hiro: Hiro;
   textureKey: string;
   private music: Sound.BaseSound;
-  glitch_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  glitch_sound:
+    | Sound.NoAudioSound
+    | Sound.HTML5AudioSound
+    | Sound.WebAudioSound;
 
   constructor(scene: Scene, x: number, y: number, texture: string) {
     super(scene, x, y, texture);
@@ -24,14 +27,16 @@ export class Glitch extends Entity {
     // adding glitch sound
     this.glitch_sound = this.scene.sound.add("glitch_sound", { loop: false });
 
-    anims.create({
-      key: "exist",
-      frames: anims.generateFrameNumbers(this.textureKey, {
-        frames: [2, 0, 1, 0, 2, 1, 2, 0],
-      }),
-      frameRate: animsFrameRate,
-      repeat: -1,
-    });
+    if (!scene.anims.exists("exist")) {
+      anims.create({
+        key: "exist",
+        frames: anims.generateFrameNumbers(this.textureKey, {
+          frames: [2, 0, 1, 0, 2, 1, 2, 0],
+        }),
+        frameRate: animsFrameRate,
+        repeat: -1,
+      });
+    }
 
     this.play("exist", true);
   }
@@ -41,7 +46,7 @@ export class Glitch extends Entity {
     this.hiro = hiro;
   }
 
-  setMusicFromScene(music: Sound.BaseSound){
+  setMusicFromScene(music: Sound.BaseSound) {
     this.music = music;
   }
 

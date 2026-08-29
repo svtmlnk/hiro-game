@@ -181,7 +181,7 @@
          "columns":8,
          "firstgid":1,
          "image":"..\/..\/..\/public\/assets\/sprites\/grass.png",
-         "imageheight":146,
+         "imageheight":128,
          "imagewidth":256,
          "margin":0,
          "name":"grass",

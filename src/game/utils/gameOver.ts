@@ -31,7 +31,7 @@ export class GameOverManager {
 
     setTimeout(() => {
       const chance = Math.floor(Math.random() * 100) + 1;
-      scene.scene.start(chance <= 100 ? "Reality" : "GameOver");
+      scene.scene.start(chance <= 10 ? "Reality" : "GameOver");
     }, 3200);
   }
 }

@@ -24,7 +24,7 @@ export class Hiro extends Entity {
     parentFunc_changeScene: (zoneName: string) => void,
     parentFunc_entityInteract?: () => void,
   ) {
-    super(scene, x, y, texture, SPRITES.HIRO);
+    super(scene, x, y, texture);
 
     const anims = this.scene.anims;
     // speed anims

@@ -36,7 +36,7 @@ export class World extends Scene {
     const map = this.make.tilemap({ key: "world_map" });
 
     // adding sprites for this world
-    // grass:
+    // ground:
     const tileset = map.addTilesetImage(
       worldJSON.tilesets[0].name,
       TILES.WORLD,
@@ -112,14 +112,14 @@ export class World extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(544, 535, 20, 20);
+    this.interactionZone = this.add.zone(544, 535, 30, 30);
     this.interactionZone.name = "Room";
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
     // adding basement zone
-    this.basementZone = this.add.zone(544, 425, 20, 20);
+    this.basementZone = this.add.zone(544, 425, 30, 30);
     this.basementZone.name = "Basement";
     this.physics.add.existing(this.basementZone);
     this.basementZone.body.setAllowGravity(false);

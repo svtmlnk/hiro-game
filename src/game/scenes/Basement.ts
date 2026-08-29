@@ -72,7 +72,7 @@ export class Basement extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(47, 1, 20, 20);
+    this.interactionZone = this.add.zone(47, 1, 30, 30);
     this.interactionZone.name = "World"
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
