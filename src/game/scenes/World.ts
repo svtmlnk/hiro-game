@@ -3,6 +3,7 @@ import worldJSON from "../../../src/game/assets/world.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 import { Glitch } from "../entities/glitch";
+import { DialogueBox } from "../utils/dialogueBog";
 
 export class World extends Scene {
   // File of the first game world
@@ -136,6 +137,9 @@ export class World extends Scene {
       this.basementZone,
       this.glitch,
     ]);
+
+    const dialogue = new DialogueBox(this);
+    dialogue.runTest();
   }
 
   // function of changing scene
