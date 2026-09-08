@@ -7,18 +7,33 @@ export class Preloader extends Scene {
   }
 
   init() {
-    //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-    const bar = this.add.rectangle(320 - 230, 400, 4, 6, 0xbfbfbf);
+    // text loader
+    // creating text object
+    const textObject = this.add
+      .text(320, 240, "|", {
+        fontSize: "32px",
+        fontFamily: "PIXY",
+        color: "#bfbfbf"
+      })
+      .setOrigin(0.5);
 
-    //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
-    this.load.on("progress", (progress: number) => {
-      //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
-      bar.width = 4 + 460 * progress;
+    // array of animation frames
+    const frames = ["|", "/", "-", "\\"];
+    let index = 0;
+
+    // creating timer
+    this.time.addEvent({
+      delay: 200, // speed of changing frames
+      callback: () => {
+        index = (index + 1) % frames.length;
+        textObject.setText(frames[index]);
+      },
+      loop: true,
     });
 
     this.load.on("complete", () => {
-      bar.destroy();
-      this.scene.start("MainMenu");
+      textObject.destroy();
+      this.scene.start("Title");
     });
   }
 

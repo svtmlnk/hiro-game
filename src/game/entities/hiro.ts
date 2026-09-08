@@ -1,6 +1,5 @@
 import { GameObjects, Math, Scene } from "phaser";
 import { Entity } from "./entity";
-import { SPRITES } from "../utils/constants";
 
 type Side = "up" | "down" | "left" | "right";
 
@@ -124,13 +123,17 @@ export class Hiro extends Entity {
   // }
 
   // function of finding our target (zone or entitiy/sprite)
-  // private findTarget(zones: Entity[]) {
   private findTarget(targets: GameObjects.Zone[] | Entity[]) {
     let target = null;
     let minDistance = Infinity;
 
     for (const trg of targets) {
-      const distance = Math.Distance.Between(this.x, this.y, trg.x, trg.y);
+      const body = this.body as Phaser.Physics.Arcade.Body;
+
+      const playerX = body.center.x;
+      const playerY = body.center.y;
+
+      const distance = Math.Distance.Between(playerX, playerY, trg.x, trg.y);
 
       if (distance < minDistance) {
         minDistance = distance;
@@ -152,7 +155,19 @@ export class Hiro extends Entity {
 
   // function for player interaction with items
   interact(target: any) {
-    const distance = Math.Distance.Between(this.x, this.y, target.x, target.y);
+    // const distance = Math.Distance.Between(this.x, this.y, target.x, target.y);
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+
+    const playerX = body.center.x;
+    const playerY = body.center.y;
+
+    const distance = Math.Distance.Between(
+      playerX,
+      playerY,
+      target.x,
+      target.y,
+    );
 
     if (distance < 10) {
       // use parent function

@@ -7,6 +7,7 @@ import { Room } from './scenes/Room';
 import { GameOver } from './scenes/GameOver';
 import { Basement } from './scenes/Basement';
 import { Reality } from './scenes/Reality';
+import { Title } from './scenes/Title';
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -25,13 +26,14 @@ const config: Phaser.Types.Core.GameConfig = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true
         }
     },
     pixelArt: true,
     scene: [
         Boot,
         Preloader,
+        Title,
         MainMenu,
         World,
         Room,

@@ -31,10 +31,10 @@ export class MainMenu extends Scene {
       .setOrigin(0.5);
 
     this.text = this.add
-      .text(320, 430, "Press ENTER to continue", {
+      .text(320, 430, "[ Press ENTER to run programm ]", {
         fontFamily: "PIXY",
-        fontSize: 23,
-        color: "#bfbfbf",
+        fontSize: 16,
+        color: "#bfbfbfb9",
         stroke: "#000000",
         align: "center",
       })

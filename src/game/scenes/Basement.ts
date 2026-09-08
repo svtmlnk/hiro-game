@@ -6,6 +6,7 @@ import { Hiro } from "../entities/hiro";
 export class Basement extends Scene {
   private hiro?: Hiro;
   interactionZone;
+  laptopZone;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
   constructor() {
@@ -47,7 +48,8 @@ export class Basement extends Scene {
       20,
       SPRITES.HIRO,
       "down",
-      () => this.changeScene()
+      () => this.changeScene(),
+      () => this.getZoneName(),
     );
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -72,14 +74,22 @@ export class Basement extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(47, 1, 30, 30);
-    this.interactionZone.name = "World"
+    this.interactionZone = this.add.zone(48, 16, 30, 30);
+    this.interactionZone.name = "World";
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
+    // adding dialogue zone
+    this.laptopZone = this.add.zone(210, 100, 30, 30);
+    this.laptopZone.name = "Laptop";
+    this.laptopZone.type = "object";
+    this.physics.add.existing(this.laptopZone);
+    this.laptopZone.body.setAllowGravity(false);
+    this.laptopZone.body.setImmovable(true);
+
     // adding targets for player interaction with interactive elements
-    this.hiro.setTargets([this.interactionZone]);
+    this.hiro.setTargets([this.interactionZone, this.laptopZone]);
   }
 
   // function of changing scene
@@ -90,6 +100,11 @@ export class Basement extends Scene {
     setTimeout(() => {
       this.scene.start("World", { x: 544, y: 431 });
     }, 2000);
+  }
+
+  getZoneName() {
+    console.log(this.laptopZone.type, this.laptopZone.name);
+    // console.log(this.physics.overlap(this.hiro, this.laptopZone))
   }
 
   update(time: number, delta: number): void {

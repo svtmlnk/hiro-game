@@ -3,7 +3,6 @@ import worldJSON from "../../../src/game/assets/world.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 import { Glitch } from "../entities/glitch";
-import { DialogueBox } from "../utils/dialogueBog";
 
 export class World extends Scene {
   // File of the first game world
@@ -113,7 +112,7 @@ export class World extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(544, 535, 30, 30);
+    this.interactionZone = this.add.zone(544, 550, 30, 30);
     this.interactionZone.name = "Room";
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
@@ -138,8 +137,8 @@ export class World extends Scene {
       this.glitch,
     ]);
 
-    const dialogue = new DialogueBox(this);
-    dialogue.runTest();
+    // const dialogue = new DialogueBox(this);
+    // dialogue.runTest();
   }
 
   // function of changing scene
