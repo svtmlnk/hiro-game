@@ -20,7 +20,6 @@ export class Title extends Scene {
 
     this.title = this.add
       .text(320, 130, template, {
-        fontFamily: "PIXY",
         fontSize: 32,
         color: "#bfbfbf",
         stroke: "#000000",
@@ -31,8 +30,8 @@ export class Title extends Scene {
     this.info = this.add
       .text(
         320,
-        270,
-        "This program gives you the opportunity\nto inhabit and explore a virtual world\nI created, while controlling a creature\nthat calls itself HIRO.",
+        300,
+        "This program gives you the opportunity\nto inhabit and explore a virtual world\nI created, while controlling a creature\nthat calls itself «HIRO».",
         {
           fontFamily: "PIXY",
           fontSize: 23,
