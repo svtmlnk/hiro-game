@@ -60,6 +60,9 @@ export class Preloader extends Scene {
     // preloading sounds
     this.load.audio("door_sound", "assets/sound/door.mp3");
     this.load.audio("glitch_sound", "assets/sound/glitch.mp3");
+
+    // fonts
+    this.load.font("PIXY", "assets/fonts/PIXY.ttf")
   }
 
   create() {

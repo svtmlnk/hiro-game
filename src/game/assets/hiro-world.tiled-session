@@ -5,6 +5,7 @@
     },
     "activeFile": "world.json",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "Все файлы (*)",
     "fileStates": {
@@ -51,11 +52,11 @@
             "scaleInDock": 1
         },
         "world.json": {
-            "scale": 0.5,
+            "scale": 1.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 908,
-                "y": 724
+                "x": 518,
+                "y": 652.6666666666666
             }
         },
         "world.json#grass": {
