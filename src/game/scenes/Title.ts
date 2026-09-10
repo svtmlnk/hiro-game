@@ -17,7 +17,7 @@ export class Title extends Scene {
       "█   █  █  █  █  █   █",
       "█   █ ███ █   █  ███ ",
     ];
-
+    
     this.title = this.add
       .text(320, 130, template, {
         fontSize: 32,

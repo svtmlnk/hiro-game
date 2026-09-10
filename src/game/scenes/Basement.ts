@@ -5,7 +5,7 @@ import { Hiro } from "../entities/hiro";
 
 export class Basement extends Scene {
   private hiro?: Hiro;
-  interactionZone;
+  worldZone;
   laptopZone;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
 
@@ -74,11 +74,11 @@ export class Basement extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(48, 16, 30, 30);
-    this.interactionZone.name = "World";
-    this.physics.add.existing(this.interactionZone);
-    this.interactionZone.body.setAllowGravity(false);
-    this.interactionZone.body.setImmovable(true);
+    this.worldZone = this.add.zone(48, 5, 30, 60);
+    this.worldZone.name = "World";
+    this.physics.add.existing(this.worldZone);
+    this.worldZone.body.setAllowGravity(false);
+    this.worldZone.body.setImmovable(true);
 
     // adding dialogue zone
     this.laptopZone = this.add.zone(210, 100, 30, 30);
@@ -89,7 +89,7 @@ export class Basement extends Scene {
     this.laptopZone.body.setImmovable(true);
 
     // adding targets for player interaction with interactive elements
-    this.hiro.setTargets([this.interactionZone, this.laptopZone]);
+    this.hiro.setTargets([this.worldZone, this.laptopZone]);
   }
 
   // function of changing scene

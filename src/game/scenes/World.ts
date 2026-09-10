@@ -10,7 +10,7 @@ export class World extends Scene {
   private spawnX = 400;
   private spawnY = 250;
   private glitch?: Glitch;
-  interactionZone;
+  roomZone;
   basementZone;
   // basementZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
@@ -112,14 +112,14 @@ export class World extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(544, 550, 30, 30);
-    this.interactionZone.name = "Room";
-    this.physics.add.existing(this.interactionZone);
-    this.interactionZone.body.setAllowGravity(false);
-    this.interactionZone.body.setImmovable(true);
+    this.roomZone = this.add.zone(544, 530, 20, 30);
+    this.roomZone.name = "Room";
+    this.physics.add.existing(this.roomZone);
+    this.roomZone.body.setAllowGravity(false);
+    this.roomZone.body.setImmovable(true);
 
     // adding basement zone
-    this.basementZone = this.add.zone(544, 425, 30, 30);
+    this.basementZone = this.add.zone(544, 450, 30, 30);
     this.basementZone.name = "Basement";
     this.physics.add.existing(this.basementZone);
     this.basementZone.body.setAllowGravity(false);
@@ -131,11 +131,7 @@ export class World extends Scene {
     this.glitch.setMusicFromScene(this.music);
 
     // adding zones and other objects in this array for function setZone (hiro.ts)
-    this.hiro.setTargets([
-      this.interactionZone,
-      this.basementZone,
-      this.glitch,
-    ]);
+    this.hiro.setTargets([this.roomZone, this.basementZone, this.glitch]);
 
     // const dialogue = new DialogueBox(this);
     // dialogue.runTest();

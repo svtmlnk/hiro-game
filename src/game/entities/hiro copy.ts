@@ -1,4 +1,4 @@
-import { GameObjects, Scene, Physics } from "phaser";
+import { GameObjects, Math, Scene } from "phaser";
 import { Entity } from "./entity";
 
 type Side = "up" | "down" | "left" | "right";
@@ -8,12 +8,11 @@ export class Hiro extends Entity {
   private moveSpeed: number;
   movePlayer: boolean;
   targets: GameObjects.Zone[] | Entity[];
-  interactionZone: GameObjects.Zone;
-  private currentSide: Side = "down";
-
+  // private parentFunc: () => void;
   // for changing scenes to our nedded scene we are getting zone name from interact()
   private parentFunc_changeScene: (zoneName: string) => void;
   private parentFunc_entityInteract: () => void;
+  actionZone;
 
   constructor(
     scene: Scene,
@@ -110,10 +109,12 @@ export class Hiro extends Entity {
     // changing player side depending on scene
     this.play(`${side || "down"}`, false);
 
-    // creating interaction zone for player
-    this.interactionZone = this.scene.add.zone(this.x, this.y + 30, 10, 10);
-    this.scene.physics.add.existing(this.interactionZone);
-    (this.interactionZone.body as Physics.Arcade.Body).setAllowGravity(false);
+    // нужно создать маленькую зону в hiro, который если будет внутри зон для взаимодействия, то происходит, собственно, действие. Сама маленькая зона будет перемещаться в зависимости от стороны игрока в update()
+    this.actionZone = this.scene.add.zone(48, 16, 30, 30);
+    this.actionZone.name = "action";
+    this.scene.physics.add.existing(this.actionZone);
+    this.actionZone.body.setAllowGravity(false);
+    this.actionZone.body.setImmovable(true);
   }
 
   deadFunc() {
@@ -125,36 +126,66 @@ export class Hiro extends Entity {
     this.targets = targets;
   }
 
+  // setZones(zones: Entity[]) {
+  //   this.zones = zones;
+  // }
+
   // function of finding our target (zone or entitiy/sprite)
   private findTarget(targets: GameObjects.Zone[] | Entity[]) {
-    for (const target of targets) {
-      // we finding current target by overlapping with player's interaction zone
-      if (this.scene.physics.overlap(this.interactionZone, target)) {
-        return target;
+    let target = null;
+    let minDistance = Infinity;
+
+    for (const trg of targets) {
+      const body = this.body as Phaser.Physics.Arcade.Body;
+
+      const playerX = body.center.x;
+      const playerY = body.center.y;
+
+      const distance = Math.Distance.Between(playerX, playerY, trg.x, trg.y);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        target = trg;
       }
     }
-
-    return null;
+    return target;
   }
 
   // private function for action functions, like interact()
   private setupKeysListeners() {
     this.scene.input.keyboard.on("keydown-E", () => {
-      const target = this.findTarget(this.targets);
-
-      if (target && this.movePlayer) {
-        this.interact(target);
+      const currentTarget = this.findTarget(this.targets);
+      if (this.movePlayer) {
+        this.interact(currentTarget);
       }
     });
   }
 
   // function for player interaction with items
   interact(target: any) {
-    if (target.type == "Zone") {
-      // we are getting zone name from target (zone target from World.ts or another parent scene file) for changing scenes to our nedded scene
-      this.parentFunc_changeScene(target.name);
-    } else {
-      this.parentFunc_entityInteract();
+    // const distance = Math.Distance.Between(this.x, this.y, target.x, target.y);
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+
+    const playerX = body.center.x;
+    const playerY = body.center.y;
+
+    const distance = Math.Distance.Between(
+      playerX,
+      playerY,
+      target.x,
+      target.y,
+    );
+
+    if (distance < 10) {
+      // use parent function
+      // this.parentFunc();
+      if (target.type == "Zone") {
+        // we are getting zone name from target (zone target from World.ts or another parent scene file) for changing scenes to our nedded scene
+        this.parentFunc_changeScene(target.name);
+      } else {
+        this.parentFunc_entityInteract();
+      }
     }
   }
 
@@ -164,44 +195,21 @@ export class Hiro extends Entity {
 
     if (this.movePlayer) {
       if (keys.up.isDown) {
-        this.currentSide = "up";
         this.play("up", true);
         this.setVelocity(0, -delta * this.moveSpeed);
       } else if (keys.down.isDown) {
-        this.currentSide = "down";
         this.setVelocity(0, delta * this.moveSpeed);
         this.play("down", true);
       } else if (keys.left.isDown) {
-        this.currentSide = "left";
         this.setVelocity(-delta * this.moveSpeed, 0);
         this.play("left", true);
       } else if (keys.right.isDown) {
-        this.currentSide = "right";
         this.setVelocity(delta * this.moveSpeed, 0);
         this.play("right", true);
       } else {
         this.setVelocity(0);
         this.stop();
       }
-    }
-
-    // switching positions for interaction zone
-    switch (this.currentSide) {
-      case "up":
-        this.interactionZone.setPosition(this.x, this.y - 5);
-        break;
-
-      case "down":
-        this.interactionZone.setPosition(this.x, this.y + 25);
-        break;
-
-      case "left":
-        this.interactionZone.setPosition(this.x - 20, this.y);
-        break;
-
-      case "right":
-        this.interactionZone.setPosition(this.x + 20, this.y);
-        break;
     }
 
     // returning time for removing warning by TypeScript

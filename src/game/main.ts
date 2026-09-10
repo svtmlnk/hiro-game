@@ -1,52 +1,50 @@
-import { Boot } from './scenes/Boot';
-import { AUTO, Game, Scale } from 'phaser';
-import { Preloader } from './scenes/Preloader';
-import { World } from './scenes/World';
-import { MainMenu } from './scenes/MainMenu';
-import { Room } from './scenes/Room';
-import { GameOver } from './scenes/GameOver';
-import { Basement } from './scenes/Basement';
-import { Reality } from './scenes/Reality';
-import { Title } from './scenes/Title';
+import { Boot } from "./scenes/Boot";
+import { AUTO, Game, Scale } from "phaser";
+import { Preloader } from "./scenes/Preloader";
+import { World } from "./scenes/World";
+import { MainMenu } from "./scenes/MainMenu";
+import { Room } from "./scenes/Room";
+import { GameOver } from "./scenes/GameOver";
+import { Basement } from "./scenes/Basement";
+import { Reality } from "./scenes/Reality";
+import { Title } from "./scenes/Title";
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
 const config: Phaser.Types.Core.GameConfig = {
-    type: AUTO,
-    width: 640,
-    height: 480,
-    parent: 'game-container',
-    backgroundColor: '#000000',
-    url: import.meta.env.URL || '',
-    version: import.meta.env.VERSION || '0.0.1',
-    scale: {
-        mode: Scale.FIT,
-        autoCenter: Scale.CENTER_BOTH
+  type: AUTO,
+  width: 640,
+  height: 480,
+  parent: "game-container",
+  backgroundColor: "#000000",
+  url: import.meta.env.URL || "",
+  version: import.meta.env.VERSION || "0.0.1",
+  scale: {
+    mode: Scale.FIT,
+    autoCenter: Scale.CENTER_BOTH,
+  },
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: true,
     },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true
-        }
-    },
-    pixelArt: true,
-    scene: [
-        Boot,
-        Preloader,
-        Title,
-        MainMenu,
-        World,
-        Room,
-        Basement,
-        GameOver,
-        Reality
-    ]
+  },
+  pixelArt: true,
+  scene: [
+    Boot,
+    Preloader,
+    Title,
+    MainMenu,
+    World,
+    Room,
+    Basement,
+    GameOver,
+    Reality,
+  ],
 };
 
 const StartGame = (parent: string) => {
-
-    return new Game({ ...config, parent });
-
-}
+  return new Game({ ...config, parent });
+};
 
 export default StartGame;
