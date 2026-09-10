@@ -2,12 +2,14 @@ import { Scene, Sound } from "phaser";
 import basementJSON from "../../../src/game/assets/basement.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
+import { DialogueAction } from "../utils/dialogueAction";
 
 export class Basement extends Scene {
   private hiro?: Hiro;
   worldZone;
   laptopZone;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  private dialogueAction?: DialogueAction;
 
   constructor() {
     super("Basement");
@@ -49,7 +51,7 @@ export class Basement extends Scene {
       SPRITES.HIRO,
       "down",
       () => this.changeScene(),
-      () => this.getZoneName(),
+      () => this.startDialogue(),
     );
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -81,8 +83,8 @@ export class Basement extends Scene {
     this.worldZone.body.setImmovable(true);
 
     // adding dialogue zone
-    this.laptopZone = this.add.zone(210, 100, 30, 30);
-    this.laptopZone.name = "Laptop";
+    this.laptopZone = this.add.zone(210, 50, 30, 30);
+    this.laptopZone.name = "laptop";
     this.laptopZone.type = "object";
     this.physics.add.existing(this.laptopZone);
     this.laptopZone.body.setAllowGravity(false);
@@ -90,6 +92,12 @@ export class Basement extends Scene {
 
     // adding targets for player interaction with interactive elements
     this.hiro.setTargets([this.worldZone, this.laptopZone]);
+
+    this.dialogueAction = new DialogueAction(
+      this,
+      this.hiro,
+      this.laptopZone.name
+    );
   }
 
   // function of changing scene
@@ -102,9 +110,8 @@ export class Basement extends Scene {
     }, 2000);
   }
 
-  getZoneName() {
-    console.log(this.laptopZone.type, this.laptopZone.name);
-    // console.log(this.physics.overlap(this.hiro, this.laptopZone))
+  startDialogue() {
+    this.dialogueAction.talkFunc();
   }
 
   update(time: number, delta: number): void {

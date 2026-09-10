@@ -1,9 +1,28 @@
 [
     {
-        "object": "laptop",
+        "elem": "laptop",
         "dialogues": [
-            "something",
-            "ok..."
+            "Laptop is active",
+            "It outputs the following: «Reality is that which, when you stop believing in it, doesn't go away.»",
+            "What does it mean?"
+        ]
+    },
+    {
+        "elem": "sign",
+        "dialogues": [
+            "«HIRO's house»",
+            "I don't know how this house appeared or who it belongs to.",
+            "But one way or another, I live in this house now."
+        ]
+    },
+        {
+        "elem": "book",
+        "dialogues": [
+            "I still can't quite finish reading this book.",
+            "I've even forgotten what it's called.",
+            "What is it called?",
+            "«I Have No Mouth, and I Must Scream»",
+            "Sooner or later, I'll finish reading it."
         ]
     }
 ]

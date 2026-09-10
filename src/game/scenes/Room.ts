@@ -2,12 +2,15 @@ import { Scene, Sound } from "phaser";
 import roomJSON from "../../../src/game/assets/room.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
+import { DialogueAction } from "../utils/dialogueAction";
 
 export class Room extends Scene {
   private hiro?: Hiro;
   interactionZone;
+  bookZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  private dialogueAction?: DialogueAction;
 
   constructor() {
     super("Room");
@@ -48,7 +51,8 @@ export class Room extends Scene {
       270,
       SPRITES.HIRO,
       "up",
-      () => this.changeScene()
+      () => this.changeScene(),
+      () => this.startDialogue()
     );
 
     // items up layer (adding this code after creating player for correctrly working)
@@ -77,14 +81,27 @@ export class Room extends Scene {
     this.door_sound = this.sound.add("door_sound", { loop: false });
 
     // adding interaction zone
-    this.interactionZone = this.add.zone(304, 272, 30, 30);
-    this.interactionZone.name = "World"
+    this.interactionZone = this.add.zone(304, 285, 30, 60);
+    this.interactionZone.name = "World";
     this.physics.add.existing(this.interactionZone);
     this.interactionZone.body.setAllowGravity(false);
     this.interactionZone.body.setImmovable(true);
 
+    this.bookZone = this.add.zone(368, 60, 30, 37);
+    this.bookZone.name = "book";
+    this.bookZone.type = "object";
+    this.physics.add.existing(this.bookZone);
+    this.bookZone.body.setAllowGravity(false);
+    this.bookZone.body.setImmovable(true);
+
     // adding targets for player interaction with interactive elements
-    this.hiro.setTargets([this.interactionZone]);
+    this.hiro.setTargets([this.interactionZone, this.bookZone]);
+
+    this.dialogueAction = new DialogueAction(
+      this,
+      this.hiro,
+      this.bookZone.name,
+    );
   }
 
   // function of changing scene
@@ -96,6 +113,10 @@ export class Room extends Scene {
     setTimeout(() => {
       this.scene.start("World", { x: 545, y: 540 });
     }, 2000);
+  }
+
+  startDialogue() {
+    this.dialogueAction.talkFunc();
   }
 
   update(time: number, delta: number): void {

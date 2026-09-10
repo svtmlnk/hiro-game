@@ -3,6 +3,7 @@ import worldJSON from "../../../src/game/assets/world.json";
 import { LAYERS, SIZES, SPRITES, TILES } from "../utils/constants";
 import { Hiro } from "../entities/hiro";
 import { Glitch } from "../entities/glitch";
+import { DialogueAction } from "../utils/dialogueAction";
 
 export class World extends Scene {
   // File of the first game world
@@ -12,9 +13,11 @@ export class World extends Scene {
   private glitch?: Glitch;
   roomZone;
   basementZone;
+  signZone;
   // basementZone;
   music: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
   door_sound: Sound.NoAudioSound | Sound.HTML5AudioSound | Sound.WebAudioSound;
+  private dialogueAction?: DialogueAction;
 
   constructor() {
     super("World");
@@ -130,11 +133,24 @@ export class World extends Scene {
     this.glitch.setHiro(this.hiro);
     this.glitch.setMusicFromScene(this.music);
 
+    this.signZone = this.add.zone(432, 585, 30, 30);
+    this.signZone.name = "sign";
+    this.signZone.type = "object";
+    this.physics.add.existing(this.signZone);
+    this.signZone.body.setAllowGravity(false);
+    this.signZone.body.setImmovable(true);
+
     // adding zones and other objects in this array for function setZone (hiro.ts)
     this.hiro.setTargets([this.roomZone, this.basementZone, this.glitch]);
 
     // const dialogue = new DialogueBox(this);
     // dialogue.runTest();
+
+    this.dialogueAction = new DialogueAction(
+      this,
+      this.hiro,
+      this.signZone.name,
+    );
   }
 
   // function of changing scene
@@ -145,6 +161,10 @@ export class World extends Scene {
     setTimeout(() => {
       this.scene.start(`${zoneName}`);
     }, 2000);
+  }
+
+  startDialogue() {
+    this.dialogueAction.talkFunc();
   }
 
   update(time: number, delta: number): void {
