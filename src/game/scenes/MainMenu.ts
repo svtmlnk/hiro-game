@@ -21,7 +21,7 @@ export class MainMenu extends Scene {
       .setOrigin(0.5);
 
     this.info = this.add
-      .text(320, 230, "[⬆] [⬇] [⬅] [➡] - moving\n[E] - interaction", {
+      .text(320, 230, "[⬆] [⬇] [⬅] [➡] - moving\n\n[E] - interaction\nand skipping dialogues", {
         fontFamily: "PIXY",
         fontSize: 23,
         color: "#bfbfbf",
@@ -31,7 +31,7 @@ export class MainMenu extends Scene {
       .setOrigin(0.5);
 
     this.text = this.add
-      .text(320, 430, "[ Press ENTER to run programm ]", {
+      .text(320, 430, "[ Press ENTER to run program ]", {
         fontFamily: "PIXY",
         fontSize: 16,
         color: "#bfbfbfb9",

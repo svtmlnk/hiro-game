@@ -7,6 +7,7 @@ export class Hiro extends Entity {
   textureKey: string;
   private moveSpeed: number;
   movePlayer: boolean;
+  isDead: boolean;
   targets: GameObjects.Zone[] | Entity[];
   interactionZone: GameObjects.Zone;
   private currentSide: Side = "down";
@@ -34,6 +35,7 @@ export class Hiro extends Entity {
     this.moveSpeed = 8;
     // boolean of moving player
     this.movePlayer = true;
+    this.isDead = false;
 
     // hitbox size and position
     this.setSize(30, 10);
@@ -142,7 +144,7 @@ export class Hiro extends Entity {
     this.scene.input.keyboard.on("keydown-E", () => {
       const target = this.findTarget(this.targets);
 
-      if (target && this.movePlayer) {
+      if (target && !this.isDead) {
         this.interact(target);
       }
     });

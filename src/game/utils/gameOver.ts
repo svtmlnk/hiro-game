@@ -12,6 +12,7 @@ export class GameOverManager {
     hiro.deadFunc();
     hiro.disableBody(true, false);
     hiro.movePlayer = false;
+    hiro.isDead = true;
     sound.play();
 
     music?.stop();
